@@ -1,15 +1,23 @@
 
 import mysql.connector
 from flask import *
+from dotenv import load_dotenv
+import os
+
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
+load_dotenv()
+
+db_user = os.getenv("DB_USERNAME")
+db_pass = os.getenv("DB_PASSWORD")
+
 
 def con_db():
 	con = mysql.connector.connect(
-		user='root',
-		password='123456789',
+		user=db_user,
+		password=db_pass,
 		host='localhost',
 		database='tourist_spots'
 	)
