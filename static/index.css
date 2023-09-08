@@ -148,7 +148,7 @@ main {
   padding: 13px 10px 13px 10px;
   display: flex;
   overflow-x: hidden;
-  overflow-y: hidden;
+
   white-space: nowrap;
 }
 
@@ -190,7 +190,7 @@ main {
   margin: 15px;
   position: relative;
   @media screen and (min-width: 600px) and (max-width: 1200px) {
-    width: calc((100% - 90px) / 3);
+    width: 320px;
   }
   @media (min-width: 360px) and (max-width: 600px) {
     width: 320px;

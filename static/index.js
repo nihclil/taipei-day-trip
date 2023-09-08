@@ -166,13 +166,15 @@ window.addEventListener("DOMContentLoaded", fetchMrts);
 
 //控制按鈕
 leftArrow.addEventListener("click", () => {
-  scrollList.scrollLeft -= 1100;
+  scrollList.scrollTo({
+    left: scrollList.scrollLeft - 300,
+    behavior: "smooth",
+  });
 });
 
 rightArrow.addEventListener("click", function () {
-  scrollList.scrollLeft += 1100;
+  scrollList.scrollTo({
+    left: scrollList.scrollLeft + 300,
+    behavior: "smooth",
+  });
 });
-
-//捷運站名稱搜尋
-// const mrtItems = document.querySelectorAll(".mrt-item");
-// console.log(mrtItems);
