@@ -47,7 +47,7 @@ def thankyou():
 	return render_template("thankyou.html")
 
 
-@app.route("/api/attractions/")
+@app.route("/api/attractions")
 def all_attractions():
 	page = int(request.args.get('page', 0))
 	keyword = str(request.args.get('keyword', ''))
@@ -61,8 +61,8 @@ def all_attractions():
 		con, cursor = con_db()
 
 		if keyword:
-			attractions_keyword = 'SELECT * FROM attractions WHERE name LIKE %s LIMIT %s OFFSET %s;'
-			cursor.execute(attractions_keyword, ('%' + keyword + '%', per_page_data + 1, page_index))
+			attractions_keyword = 'SELECT * FROM attractions WHERE name LIKE %s or mrt = %s LIMIT %s OFFSET %s;'
+			cursor.execute(attractions_keyword, ('%' + keyword + '%', keyword, per_page_data + 1, page_index))
 			keyword_result = cursor.fetchall()
 			con.commit()
 

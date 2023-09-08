@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>台北一日遊</title>
+    <link rel="stylesheet" href="static/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Noto+Sans+TC:wght@500;700&family=Open+Sans:wght@300;400&family=Playfair+Display:ital@0;1&family=Poppins:wght@100;200&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="container">
+        <div class="title">台北一日遊</div>
+        <div class="items">
+          <div class="item"><button class="nav-btn btn">預定行程</button></div>
+          <div class="item"><button class="nav-btn btn">登入/註冊</button></div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero-section">
+      <div class="welcome">
+        <div class="slogan">
+          <div class="enjoy">輕鬆享受台北一日悠閒</div>
+          <div class="explore">探索每個角落，體驗城市的深度旅遊行程</div>
+        </div>
+
+        <div class="search">
+          <input
+            id="keyword"
+            type="search"
+            placeholder="輸入景點名稱查詢"
+            class="search-box"
+          />
+          <button class="search-btn btn"><img src="static/btn.png" /></button>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <nav class="spots-list">
+        <button class="left-arrow btn">
+          <img src="static/left container.png" />
+        </button>
+        <div class="scrollable-list"></div>
+        <button class="right-arrow btn">
+          <img src="static/right container.png" />
+        </button>
+      </nav>
+      <section class="attractions"></section>
+    </main>
+    <footer><div>COPYRIGHT © 2023 台北一日遊</div></footer>
+    <script src="static/index.js"></script>
+  </body>
+</html>
