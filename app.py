@@ -194,7 +194,7 @@ def mrts():
 		cursor.execute(mrts_query)
 		mrts_result = cursor.fetchall()
 		con.commit()
-		print(mrts_result)
+	
 		mrts_arr = []
 		for mrt in mrts_result:
 			mrt = mrt['mrt']
