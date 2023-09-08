@@ -1,5 +1,5 @@
 //展現前十二筆資料
-const attractionsUrl = "http://127.0.0.1:3000/api/attractions";
+const attractionsUrl = "http://34.225.182.0:3000/api/attractions";
 let nextPage;
 let observer;
 let isFetching = false;
@@ -51,14 +51,14 @@ searchBtn.addEventListener("click", (event) => {
   });
 
   keywordSearch(
-    `http://127.0.0.1:3000/api/attractions?page=0&keyword=${keywordValue}`
+    `http://34.225.182.0:3000/api/attractions?page=0&keyword=${keywordValue}`
   ).then(() => {
     observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && !isFetching && nextPage !== null) {
           isFetching = true;
           keywordSearch(
-            `http://127.0.0.1:3000/api/attractions?page=${nextPage}&keyword=${keywordValue}`
+            `http://34.225.182.0:3000/api/attractions?page=${nextPage}&keyword=${keywordValue}`
           ).then(() => (isFetching = false));
         }
       });
@@ -121,7 +121,7 @@ const rightArrow = document.querySelector(".right-arrow");
 
 //取得捷運站資料
 async function fetchMrts() {
-  const response = await fetch("http://127.0.0.1:3000/api/mrts");
+  const response = await fetch("http://34.225.182.0:3000/api/mrts");
   const data = await response.json();
 
   data.data.forEach((mrt) => {
@@ -150,7 +150,7 @@ async function fetchMrts() {
       //利用捷運站名fetch
       const stationName = searchBox.value;
       const response = await fetch(
-        `http://127.0.0.1:3000/api/attractions?keyword=${stationName}`
+        `http://34.225.182.0:3000/api/attractions?keyword=${stationName}`
       );
       const data = await response.json();
 
