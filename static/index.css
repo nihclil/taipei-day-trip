@@ -1,0 +1,269 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*按鈕預設樣式移除*/
+.btn {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+}
+
+.nav {
+  display: flex;
+  height: 54px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  width: 1200px;
+  margin: auto;
+}
+
+.title {
+  color: #448899;
+  font-family: Noto Sans TC;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 34px;
+}
+
+.items {
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.item {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-btn {
+  color: #666666;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.hero-section {
+  background-image: url("../static/welcome.png");
+  background-size: cover;
+  height: 320px;
+  display: flex;
+}
+
+.welcome {
+  width: 1200px;
+  margin: auto;
+  padding: 10px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 360px) and (max-width: 600px) {
+    width: 320px;
+    height: 149px;
+  }
+}
+
+.slogan {
+  height: 78px;
+  @media (min-width: 360px) and (max-width: 600px) {
+    width: 320px;
+    height: 78px;
+  }
+}
+
+.enjoy {
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 24px;
+  color: #f8f8f8;
+  height: 41px;
+}
+
+.explore {
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 16px;
+  color: #f8f8f8;
+  height: 22px;
+}
+
+.search {
+  display: flex;
+}
+
+.search-box {
+  width: 400px;
+  height: 46px;
+  padding: 10px;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  @media (min-width: 360px) and (max-width: 600px) {
+    width: 225px;
+  }
+}
+
+.search-btn {
+  height: 46px;
+  cursor: pointer;
+}
+
+main {
+  margin: auto;
+  padding: 40px 0px 40px 0px;
+
+  @media (min-width: 360px) and (max-width: 600px) {
+    width: auto;
+  }
+}
+
+.spots-list {
+  width: 1200px;
+  height: 70px;
+  display: flex;
+  padding: 0px 0px 20px 0px;
+  margin: auto;
+  @media screen and (min-width: 600px) and (max-width: 1200px) {
+    width: auto;
+  }
+  @media screen and (min-width: 360px) and (max-width: 600px) {
+    width: auto;
+  }
+}
+
+.scrollable-list {
+  padding: 13px 10px 13px 10px;
+  display: flex;
+  overflow-x: hidden;
+
+  white-space: nowrap;
+}
+
+.left-arrow .right-arrow {
+  padding: 9px 0px 9px 15px;
+}
+
+.mrt-item {
+  display: flex;
+  padding: 5px 15px 5px 15px;
+  text-align: center;
+  font-size: 16px;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  color: #666666;
+  cursor: pointer;
+}
+
+.attractions {
+  width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  @media screen and (min-width: 600px) and (max-width: 1200px) {
+    width: auto;
+    justify-content: center;
+  }
+  @media (min-width: 360px) and (max-width: 600px) {
+    width: auto;
+    justify-content: center;
+  }
+}
+
+.attraction-item {
+  box-sizing: border-box;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+  width: calc((100% - 120px) / 4);
+  margin: 15px;
+  position: relative;
+  @media screen and (min-width: 600px) and (max-width: 1200px) {
+    width: 320px;
+  }
+  @media (min-width: 360px) and (max-width: 600px) {
+    width: 320px;
+    height: 280px;
+  }
+}
+
+.attraction-item img {
+  width: 100%;
+  height: 197px;
+  display: block;
+  @media (min-width: 360px) and (max-width: 600px) {
+    height: 235px;
+  }
+}
+
+.attraction-item .name {
+  background-color: #000000;
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  font-size: 16px;
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  color: #ffffff;
+  opacity: 0.6;
+  position: absolute;
+  bottom: 45px;
+  @media (min-width: 360px) and (max-width: 600px) {
+    bottom: 44px;
+  }
+}
+
+.attraction-item .mrt-and-category {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: #757575;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.attraction-item .mrt {
+  width: 50%;
+  height: 25px;
+}
+
+.attraction-item .category {
+  width: 50%;
+  height: 25px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+footer {
+  box-sizing: border-box;
+
+  height: 104px;
+  background-color: #757575;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer div {
+  text-align: center;
+  margin: auto;
+  width: 234px;
+  height: 24px;
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+}
