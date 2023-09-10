@@ -15,7 +15,6 @@ async function fetchAndPopulate(url) {
     const attractionEl = createAttractionElement(attraction);
     attractions.appendChild(attractionEl);
   });
-
   nextPage = data.nextPage;
 }
 

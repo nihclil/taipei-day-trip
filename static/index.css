@@ -111,6 +111,9 @@
   border: none;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  @media (min-width: 600px) and (max-width: 1200px) {
+    width: auto;
+  }
   @media (min-width: 360px) and (max-width: 600px) {
     width: 225px;
   }
@@ -124,8 +127,10 @@
 main {
   margin: auto;
   padding: 40px 0px 40px 0px;
-
   @media (min-width: 360px) and (max-width: 600px) {
+    width: auto;
+  }
+  @media (min-width: 600px) and (max-width: 1200px) {
     width: auto;
   }
 }
@@ -249,7 +254,6 @@ main {
 
 footer {
   box-sizing: border-box;
-
   height: 104px;
   background-color: #757575;
   display: flex;
