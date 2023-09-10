@@ -22,6 +22,7 @@
   height: 34px;
   width: 1200px;
   margin: auto;
+  flex: auto;
 }
 
 .title {
@@ -66,6 +67,7 @@
   padding: 10px;
   gap: 10px;
   display: flex;
+  flex: auto;
   flex-direction: column;
   @media (min-width: 360px) and (max-width: 600px) {
     width: 320px;
@@ -139,6 +141,7 @@ main {
   width: 1200px;
   height: 70px;
   display: flex;
+  flex: auto;
   padding: 0px 0px 20px 0px;
   margin: auto;
   @media screen and (min-width: 600px) and (max-width: 1200px) {
@@ -176,6 +179,7 @@ main {
   width: 1200px;
   margin: auto;
   display: flex;
+  flex: auto;
   flex-wrap: wrap;
   @media screen and (min-width: 600px) and (max-width: 1200px) {
     width: auto;
