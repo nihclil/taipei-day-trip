@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+header {
+  box-sizing: border-box;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.site-header {
+  width: 1200px;
+  height: 34px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.site-title {
+  width: 150px;
+
+  font-size: 30px;
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  color: #448899;
+}
+
+.header-buttons {
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.header-buttons > button {
+  font-size: 16px;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  color: #666666;
+  padding: 10px;
+}
