@@ -24,6 +24,10 @@
   margin: auto;
 }
 
+.container a {
+  text-decoration: none;
+}
+
 .title {
   color: #448899;
   font-family: Noto Sans TC;
@@ -67,18 +71,10 @@
   gap: 10px;
   display: flex;
   flex-direction: column;
-  @media (min-width: 360px) and (max-width: 600px) {
-    width: 320px;
-    height: 149px;
-  }
 }
 
 .slogan {
   height: 78px;
-  @media (min-width: 360px) and (max-width: 600px) {
-    width: 320px;
-    height: 78px;
-  }
 }
 
 .enjoy {
@@ -111,9 +107,6 @@
   border: none;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  @media (min-width: 360px) and (max-width: 600px) {
-    width: 225px;
-  }
 }
 
 .search-btn {
@@ -124,10 +117,6 @@
 main {
   margin: auto;
   padding: 40px 0px 40px 0px;
-
-  @media (min-width: 360px) and (max-width: 600px) {
-    width: auto;
-  }
 }
 
 .spots-list {
@@ -136,12 +125,6 @@ main {
   display: flex;
   padding: 0px 0px 20px 0px;
   margin: auto;
-  @media screen and (min-width: 600px) and (max-width: 1200px) {
-    width: auto;
-  }
-  @media screen and (min-width: 360px) and (max-width: 600px) {
-    width: auto;
-  }
 }
 
 .scrollable-list {
@@ -172,39 +155,22 @@ main {
   margin: auto;
   display: flex;
   flex-wrap: wrap;
-  @media screen and (min-width: 600px) and (max-width: 1200px) {
-    width: auto;
-    justify-content: center;
-  }
-  @media (min-width: 360px) and (max-width: 600px) {
-    width: auto;
-    justify-content: center;
-  }
 }
 
 .attraction-item {
   box-sizing: border-box;
   border: 1px solid #e8e8e8;
   border-radius: 5px;
-  width: calc((100% - 120px) / 4);
+  width: 270px;
+  height: 242px;
   margin: 15px;
   position: relative;
-  @media screen and (min-width: 600px) and (max-width: 1200px) {
-    width: 320px;
-  }
-  @media (min-width: 360px) and (max-width: 600px) {
-    width: 320px;
-    height: 280px;
-  }
 }
 
 .attraction-item img {
   width: 100%;
   height: 197px;
   display: block;
-  @media (min-width: 360px) and (max-width: 600px) {
-    height: 235px;
-  }
 }
 
 .attraction-item .name {
@@ -219,10 +185,7 @@ main {
   color: #ffffff;
   opacity: 0.6;
   position: absolute;
-  bottom: 45px;
-  @media (min-width: 360px) and (max-width: 600px) {
-    bottom: 44px;
-  }
+  bottom: 43px;
 }
 
 .attraction-item .mrt-and-category {
@@ -249,12 +212,12 @@ main {
 
 footer {
   box-sizing: border-box;
-
   height: 104px;
   background-color: #757575;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: sticky;
 }
 
 footer div {
@@ -266,4 +229,60 @@ footer div {
   font-weight: 700;
   font-size: 16px;
   color: #ffffff;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+  .spots-list {
+    width: auto;
+  }
+  .main {
+    width: auto;
+  }
+
+  .attractions {
+    width: auto;
+    justify-content: center;
+  }
+
+  .attraction-item {
+    width: 320px;
+  }
+}
+
+@media screen and (min-width: 360px) and (max-width: 600px) {
+  .welcome {
+    width: 320px;
+    height: 149px;
+  }
+
+  .slogan {
+    width: 320px;
+    height: 78px;
+  }
+
+  .spots-list {
+    width: auto;
+  }
+
+  .search-box {
+    width: 225px;
+  }
+
+  .attractions {
+    width: auto;
+    justify-content: center;
+  }
+
+  .attraction-item {
+    width: 320px;
+    height: 280px;
+  }
+
+  .attraction-item img {
+    height: 235px;
+  }
+}
+
+a {
+  text-decoration: none;
 }

@@ -15,7 +15,6 @@ async function fetchAndPopulate(url) {
     const attractionEl = createAttractionElement(attraction);
     attractions.appendChild(attractionEl);
   });
-
   nextPage = data.nextPage;
 }
 
@@ -45,7 +44,7 @@ searchBtn.addEventListener("click", (event) => {
 
   //清除現有子元素
   const attractions = document.querySelector(".attractions");
-  const attractionsChildren = document.querySelectorAll(".attraction-item");
+  const attractionsChildren = document.querySelectorAll(".attractions a");
   attractionsChildren.forEach((child) => {
     attractions.removeChild(child);
   });
@@ -93,6 +92,9 @@ function createAttractionElement(attraction) {
   img.src = attraction.images[0];
   attractionItem.appendChild(img);
 
+  const imgLink = document.createElement("a");
+  imgLink.href = `http://34.225.182.0:3000/attraction/${attraction.id}`;
+
   const name = document.createElement("div");
   name.className = "name";
   name.textContent = attraction.name;
@@ -112,7 +114,8 @@ function createAttractionElement(attraction) {
   mrtAndCategory.appendChild(mrt);
   mrtAndCategory.appendChild(category);
   attractionItem.appendChild(mrtAndCategory);
-  return attractionItem;
+  imgLink.appendChild(attractionItem);
+  return imgLink;
 }
 
 const scrollList = document.querySelector(".scrollable-list");
@@ -140,7 +143,7 @@ async function fetchMrts() {
       }
       //清除現有子元素
       const attractions = document.querySelector(".attractions");
-      const attractionsChildren = document.querySelectorAll(".attraction-item");
+      const attractionsChildren = document.querySelectorAll(".attractions a");
       attractionsChildren.forEach((child) => {
         attractions.removeChild(child);
       });
