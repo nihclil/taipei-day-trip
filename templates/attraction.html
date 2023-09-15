@@ -15,7 +15,7 @@
   <body>
     <header>
       <div class="site-header">
-        <div class="site-title">台北一日遊</div>
+        <a href="http://127.0.0.1:3000/" class="site-title">台北一日遊</a>
         <nav class="header-buttons">
           <button class="schedule-button button">預定行程</button>
           <button class="auth-button button">登入/註冊</button>
@@ -24,10 +24,7 @@
     </header>
 
     <div class="photos-booking-section">
-      <figure class="attraction-photos"></figure>
       <section class="attraction-infos">
-        <p class="name">平安鐘</p>
-        <p class="category-mrt">公共藝術at忠孝復興</p>
         <div class="booking-infos">
           <p class="booking-title">訂購導覽行程</p>
           <p class="booking-description">
@@ -35,7 +32,26 @@
           </p>
           <form class="booking-form">
             <label class="booking-date">選擇日期：<input type="date" /></label>
-            <label class="booking-time">選擇時間：<input type="time" /></label>
+            <div class="booking-time">
+              選擇時間：
+              <input
+                type="radio"
+                id="morning"
+                name="time"
+                value="morning"
+                checked
+              />
+              <label for="morning">上半天</label>
+
+              <input
+                type="radio"
+                id="afternoon"
+                name="time"
+                value="afternoon"
+              />
+              <label for="afternoon">下半天</label>
+            </div>
+
             <p class="booking-money">導覽費用：<span> 新台幣 2000 元</span></p>
             <button class="booking-button">開始預約行程</button>
           </form>
@@ -44,22 +60,9 @@
     </div>
 
     <div class="separator"></div>
-
-    <div class="attraction-details">
-      <p class="attraction-description">
-        平安鐘祈求大家的平安，這是為了紀念921地震週年的設計，在喧鬧的廣場上每個小時鳴鐘，保佑平安，祈禱臺灣不會再發生這樣的天災。雙手合十加上108個黃色的琉璃乳丁，隨著緩緩流下的水，在底下的一個小噴泉噴出。雙手合十的意義，一個是祈福，一個是包容，教我們要包容這樣的改變，撫平這樣的傷口。下面的水緩緩流出，代表著人的生命力是不斷地延續下去。緩緩地鐘聲，卻帶來心中的寧靜。
-        這個平安鐘是由建築師姚仁喜與琉璃創作家王俠軍共同設計，長6公尺、寬5公尺，以鑄銅製成，由法鼓山文教基金會全額出資。平安鐘點綴都市景觀，不時提醒大家，面對刻骨銘心的災難痛苦，更應該有謙卑的一顆心。
-      </p>
-      <p class="attraction-address">景點地址：</p>
-      <p class="attraction-address-details">臺北市 大安區忠孝東路4段</p>
-      <p class="attraction-transport">交通方式：</p>
-      <p class="attraction-transport-details">
-        捷運站名：忠孝復興站4號出口1.公車：204、212、212直、232、232副、262、262(區間)、278、299、521、605、605(副)、605(新台五線)、667、903、忠孝新幹線至頂好市場站
-        2.車位：太平洋崇光百貨地下停車場或市民大道附近地下停車場
-      </p>
-    </div>
-
+    <div class="attraction-details"></div>
     <footer><p>COPYRIGHT © 2023 台北一日遊</p></footer>
+
     <script src="/static/attraction.js"></script>
   </body>
 </html>

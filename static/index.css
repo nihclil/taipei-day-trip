@@ -24,6 +24,10 @@
   margin: auto;
 }
 
+.container a {
+  text-decoration: none;
+}
+
 .title {
   color: #448899;
   font-family: Noto Sans TC;
@@ -157,7 +161,8 @@ main {
   box-sizing: border-box;
   border: 1px solid #e8e8e8;
   border-radius: 5px;
-  width: calc((100% - 120px) / 4);
+  width: 270px;
+  height: 242px;
   margin: 15px;
   position: relative;
 }
@@ -180,7 +185,7 @@ main {
   color: #ffffff;
   opacity: 0.6;
   position: absolute;
-  bottom: 45px;
+  bottom: 43px;
 }
 
 .attraction-item .mrt-and-category {
@@ -212,6 +217,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: sticky;
 }
 
 footer div {
@@ -275,8 +281,8 @@ footer div {
   .attraction-item img {
     height: 235px;
   }
+}
 
-  .attraction-item .name {
-    bottom: 44px;
-  }
+a {
+  text-decoration: none;
 }
