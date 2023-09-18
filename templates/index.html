@@ -13,42 +13,48 @@
     />
   </head>
   <body>
-    <nav class="nav">
-      <div class="container">
-        <a href="http://34.225.182.0:3000/" class="title">台北一日遊</a>
-        <div class="items">
-          <div class="item"><button class="nav-btn btn">預定行程</button></div>
-          <div class="item"><button class="nav-btn btn">登入/註冊</button></div>
+    <header>
+      <nav class="header-nav">
+        <a href="http://127.0.0.1:3000/" class="header-nav__title link-unstyled"
+          >台北一日遊</a
+        >
+        <div class="header-nav__actions">
+          <button class="text-button text-button--p10 button">預定行程</button>
+          <button class="text-button text-button--p10 button">登入/註冊</button>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
 
     <div class="hero-section">
-      <div class="welcome">
-        <div class="slogan">
-          <div class="enjoy">輕鬆享受台北一日悠閒</div>
-          <div class="explore">探索每個角落，體驗城市的深度旅遊行程</div>
+      <div class="hero-section__container">
+        <div class="hero-section__slogan">
+          <p class="hero-section__primary-text">輕鬆享受台北一日悠閒</p>
+          <p class="hero-section__secondary-text">
+            探索每個角落，體驗城市的深度旅遊行程
+          </p>
         </div>
 
-        <div class="search">
+        <div class="hero-section__search">
           <input
             id="keyword"
             type="search"
             placeholder="輸入景點名稱查詢"
-            class="search-box"
+            class="hero-section__input"
           />
-          <button class="search-btn btn"><img src="static/btn.png" /></button>
+          <button class="hero-section__button button">
+            <img src="static/btn.png" />
+          </button>
         </div>
       </div>
     </div>
 
     <main>
-      <nav class="spots-list">
-        <button class="left-arrow btn">
+      <nav class="station-list">
+        <button class="station-list__arrow left-arrow button">
           <img src="static/left container.png" />
         </button>
-        <div class="scrollable-list"></div>
-        <button class="right-arrow btn">
+        <div class="station-list__container"></div>
+        <button class="station-list__arrow right-arrow button">
           <img src="static/right container.png" />
         </button>
       </nav>

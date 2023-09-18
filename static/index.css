@@ -4,57 +4,52 @@
 }
 
 /*按鈕預設樣式移除*/
-.btn {
+.button {
   border: none;
   padding: 0;
   margin: 0;
   background-color: transparent;
 }
 
-.nav {
+header {
   display: flex;
   height: 54px;
 }
 
-.container {
+.header-nav {
   display: flex;
   align-items: center;
-  height: 34px;
   width: 1200px;
   margin: auto;
 }
 
-.container a {
+.link-unstyled {
   text-decoration: none;
 }
 
-.title {
+.header-nav__title {
   color: #448899;
   font-family: Noto Sans TC;
   font-size: 30px;
   font-weight: 700;
-  line-height: 34px;
 }
 
-.items {
+.header-nav__actions {
   flex: auto;
   display: flex;
-  align-items: center;
   justify-content: flex-end;
 }
 
-.item {
-  display: flex;
-  padding: 10px;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-btn {
+.text-button {
   color: #666666;
   font-family: Noto Sans TC;
   font-weight: 500;
   font-size: 16px;
+  cursor: pointer;
+}
+
+.text-button--p10 {
+  padding: 10px;
 }
 
 .hero-section {
@@ -64,41 +59,40 @@
   display: flex;
 }
 
-.welcome {
-  width: 1200px;
+.hero-section__container {
+  width: 1180px;
+  height: 149px;
   margin: auto;
   padding: 10px;
-  gap: 10px;
   display: flex;
   flex-direction: column;
 }
 
-.slogan {
+.hero-section__slogan {
   height: 78px;
+  margin-bottom: 25px;
 }
 
-.enjoy {
+.hero-section__primary-text {
   font-family: Noto Sans TC;
   font-weight: 700;
   font-size: 28px;
-  line-height: 24px;
+  padding-bottom: 15px;
   color: #f8f8f8;
-  height: 41px;
 }
 
-.explore {
+.hero-section__secondary-text {
   font-family: Noto Sans TC;
   font-weight: 700;
   font-size: 16px;
   color: #f8f8f8;
-  height: 22px;
 }
 
-.search {
+.hero-section__search {
   display: flex;
 }
 
-.search-box {
+.hero-section__input {
   width: 400px;
   height: 46px;
   padding: 10px;
@@ -109,7 +103,7 @@
   border-bottom-left-radius: 5px;
 }
 
-.search-btn {
+.hero-section__button {
   height: 46px;
   cursor: pointer;
 }
@@ -119,7 +113,7 @@ main {
   padding: 40px 0px 40px 0px;
 }
 
-.spots-list {
+.station-list {
   width: 1200px;
   height: 70px;
   display: flex;
@@ -127,19 +121,18 @@ main {
   margin: auto;
 }
 
-.scrollable-list {
+.station-list__container {
   padding: 13px 10px 13px 10px;
   display: flex;
   overflow-x: hidden;
-
   white-space: nowrap;
 }
 
-.left-arrow .right-arrow {
+.station-list__arrow {
   padding: 9px 0px 9px 15px;
 }
 
-.mrt-item {
+.station-list__name {
   display: flex;
   padding: 5px 15px 5px 15px;
   text-align: center;
@@ -157,7 +150,7 @@ main {
   flex-wrap: wrap;
 }
 
-.attraction-item {
+.attraction-card {
   box-sizing: border-box;
   border: 1px solid #e8e8e8;
   border-radius: 5px;
@@ -167,13 +160,13 @@ main {
   position: relative;
 }
 
-.attraction-item img {
+.attraction-card img {
   width: 100%;
   height: 197px;
   display: block;
 }
 
-.attraction-item .name {
+.attraction-card__name {
   background-color: #000000;
   box-sizing: border-box;
   width: 100%;
@@ -188,7 +181,7 @@ main {
   bottom: 43px;
 }
 
-.attraction-item .mrt-and-category {
+.attraction-card__info {
   display: flex;
   align-items: center;
   padding: 10px;
@@ -198,12 +191,12 @@ main {
   font-size: 16px;
 }
 
-.attraction-item .mrt {
+.attraction-card__mrt {
   width: 50%;
   height: 25px;
 }
 
-.attraction-item .category {
+.attraction-card__category {
   width: 50%;
   height: 25px;
   display: flex;
@@ -232,10 +225,15 @@ footer div {
 }
 
 @media screen and (min-width: 600px) and (max-width: 1200px) {
-  .spots-list {
-    width: auto;
+  .hero-section__container {
+    width: 560px;
   }
-  .main {
+
+  .hero-section__input {
+    width: 310px;
+  }
+
+  .station-list {
     width: auto;
   }
 
@@ -244,28 +242,27 @@ footer div {
     justify-content: center;
   }
 
-  .attraction-item {
-    width: 320px;
+  .attraction-card {
+    width: 295px;
+    height: 261px;
+  }
+
+  .attraction-card img {
+    height: 216px;
   }
 }
 
 @media screen and (min-width: 360px) and (max-width: 600px) {
-  .welcome {
+  .hero-section__container {
     width: 320px;
-    height: 149px;
   }
 
-  .slogan {
-    width: 320px;
-    height: 78px;
-  }
-
-  .spots-list {
-    width: auto;
-  }
-
-  .search-box {
+  .hero-section__input {
     width: 225px;
+  }
+
+  .station-list {
+    width: auto;
   }
 
   .attractions {
@@ -273,16 +270,12 @@ footer div {
     justify-content: center;
   }
 
-  .attraction-item {
+  .attraction-card {
     width: 320px;
     height: 280px;
   }
 
-  .attraction-item img {
+  .attraction-card img {
     height: 235px;
   }
-}
-
-a {
-  text-decoration: none;
 }

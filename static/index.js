@@ -1,10 +1,10 @@
 //展現前十二筆資料
-const attractionsUrl = "http://34.225.182.0:3000/api/attractions";
+const attractionsUrl = "http://127.0.0.1:3000/api/attractions";
 let nextPage;
 let observer;
 let isFetching = false;
 const footer = document.querySelector("footer");
-const searchBtn = document.querySelector(".search-btn");
+const searchBtn = document.querySelector(".hero-section__button");
 const attractions = document.querySelector(".attractions");
 
 async function fetchAndPopulate(url) {
@@ -44,20 +44,20 @@ searchBtn.addEventListener("click", (event) => {
 
   //清除現有子元素
   const attractions = document.querySelector(".attractions");
-  const attractionsChildren = document.querySelectorAll(".attractions a");
+  const attractionsChildren = document.querySelectorAll(".attraction-link");
   attractionsChildren.forEach((child) => {
     attractions.removeChild(child);
   });
 
   keywordSearch(
-    `http://34.225.182.0:3000/api/attractions?page=0&keyword=${keywordValue}`
+    `http://127.0.0.1:3000/api/attractions?page=0&keyword=${keywordValue}`
   ).then(() => {
     observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && !isFetching && nextPage !== null) {
           isFetching = true;
           keywordSearch(
-            `http://34.225.182.0:3000/api/attractions?page=${nextPage}&keyword=${keywordValue}`
+            `http://127.0.0.1:3000/api/attractions?page=${nextPage}&keyword=${keywordValue}`
           ).then(() => (isFetching = false));
         }
       });
@@ -69,11 +69,11 @@ searchBtn.addEventListener("click", (event) => {
 async function keywordSearch(keywordUrl) {
   const response = await fetch(keywordUrl);
   const data = await response.json();
-  console.log(data);
+
   if (data.data.length == 0) {
     const attractionEl = document.createElement("div");
     attractionEl.textContent = "沒有結果";
-    attractionEl.className = "attraction-item ";
+    attractionEl.className = "attraction-card";
     attractions.appendChild(attractionEl);
   }
   data.data.forEach((attraction) => {
@@ -86,29 +86,30 @@ async function keywordSearch(keywordUrl) {
 
 function createAttractionElement(attraction) {
   const attractionItem = document.createElement("div");
-  attractionItem.className = "attraction-item";
+  attractionItem.className = "attraction-card";
 
   const img = document.createElement("img");
   img.src = attraction.images[0];
   attractionItem.appendChild(img);
 
   const imgLink = document.createElement("a");
-  imgLink.href = `http://34.225.182.0:3000/attraction/${attraction.id}`;
+  imgLink.className = "attraction-link link-unstyled";
+  imgLink.href = `http://127.0.0.1:3000/attraction/${attraction.id}`;
 
   const name = document.createElement("div");
-  name.className = "name";
+  name.className = "attraction-card__name";
   name.textContent = attraction.name;
   attractionItem.appendChild(name);
 
   const mrtAndCategory = document.createElement("div");
-  mrtAndCategory.className = "mrt-and-category";
+  mrtAndCategory.className = "attraction-card__info";
 
   const mrt = document.createElement("div");
-  mrt.className = "mrt";
+  mrt.className = "attraction-card__mrt";
   mrt.textContent = attraction.mrt;
 
   const category = document.createElement("div");
-  category.className = "category";
+  category.className = "attraction-card__category";
   category.textContent = attraction.category;
 
   mrtAndCategory.appendChild(mrt);
@@ -118,23 +119,23 @@ function createAttractionElement(attraction) {
   return imgLink;
 }
 
-const scrollList = document.querySelector(".scrollable-list");
+const scrollList = document.querySelector(".station-list__container");
 const leftArrow = document.querySelector(".left-arrow");
 const rightArrow = document.querySelector(".right-arrow");
 
 //取得捷運站資料
 async function fetchMrts() {
-  const response = await fetch("http://34.225.182.0:3000/api/mrts");
+  const response = await fetch("http://127.0.0.1:3000/api/mrts");
   const data = await response.json();
 
   data.data.forEach((mrt) => {
     const mrtEl = document.createElement("div");
-    mrtEl.className = "mrt-item";
+    mrtEl.className = "station-list__name";
     mrtEl.textContent = mrt;
     scrollList.appendChild(mrtEl);
   });
 
-  const mrtItems = document.querySelectorAll(".mrt-item");
+  const mrtItems = document.querySelectorAll(".station-list__name");
   mrtItems.forEach((mrtItem) =>
     mrtItem.addEventListener("click", async () => {
       //斷開連結
@@ -143,17 +144,17 @@ async function fetchMrts() {
       }
       //清除現有子元素
       const attractions = document.querySelector(".attractions");
-      const attractionsChildren = document.querySelectorAll(".attractions a");
+      const attractionsChildren = document.querySelectorAll(".attraction-link");
       attractionsChildren.forEach((child) => {
         attractions.removeChild(child);
       });
 
-      const searchBox = document.querySelector(".search-box");
+      const searchBox = document.querySelector(".hero-section__input");
       searchBox.value = mrtItem.textContent;
       //利用捷運站名fetch
       const stationName = searchBox.value;
       const response = await fetch(
-        `http://34.225.182.0:3000/api/attractions?keyword=${stationName}`
+        `http://127.0.0.1:3000/api/attractions?keyword=${stationName}`
       );
       const data = await response.json();
 
