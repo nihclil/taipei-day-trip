@@ -204,7 +204,35 @@ def mrts():
 		return jsonify({'data': mrts_arr})
 
 	except Exception as e:
+		print("An error occurred:", e)
 		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
+
+
+@app.route("/api/user", method=["POST"])
+def register():
+	data = request.get_json()
+	if not data:
+		return jsonify({'error': True, 'message': '註冊失敗'}), 400
+	try:
+		email = data['email']
+
+		con,cursor = con_db()
+		search_query = 'SELECT email FROM member WHERE email = %s'
+		cursor.execute(search_query,(email,))
+		search_email = cursor.fetchall()
+		if search_email:
+			return jsonify({'error': True, 'message': '重複email'}), 400
+		else:
+			return jsonify({"ok": True})
+
+	except Exception as e:
+		print("An error occurred:", e)
+		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
+
+@app.route("/api/user/auth")
+def authentication():
+	
+
 
 
 app.run(host="0.0.0.0", port=3000, debug=True)
