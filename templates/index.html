@@ -20,7 +20,11 @@
         >
         <div class="header-nav__actions">
           <button class="text-button text-button--p10 button">預定行程</button>
-          <button class="text-button text-button--p10 button">登入/註冊</button>
+          <button
+            class="header-nav__signin text-button text-button--p10 button"
+          >
+            登入/註冊
+          </button>
         </div>
       </nav>
     </header>
@@ -49,6 +53,30 @@
     </div>
 
     <main>
+      <div class="modal-signin">
+        <div class="signin__container">
+          <div class="signin__border"></div>
+          <div class="signin__content">
+            <button class="signin__close button">
+              <img src="static/icon_close.png" />
+            </button>
+            <p class="signin__title">登入會員帳號</p>
+            <input
+              type="email"
+              placeholder="輸入電子信箱"
+              class="signin__email signin__input"
+            />
+            <input
+              type="password"
+              placeholder="輸入密碼"
+              class="signin__password signin__input"
+            />
+            <button class="signin__button button">登入帳戶</button>
+            <p class="signin__prompt">還沒有帳戶？點此註冊</p>
+          </div>
+        </div>
+      </div>
+
       <nav class="station-list">
         <button class="station-list__arrow left-arrow button">
           <img src="static/left container.png" />
