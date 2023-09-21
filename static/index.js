@@ -182,3 +182,26 @@ rightArrow.addEventListener("click", function () {
     behavior: "smooth",
   });
 });
+
+//開啟/關閉登入視窗
+const headerNavSignIn = document.querySelector(".header-nav__signin");
+const modalSignIn = document.querySelector(".modal-signin");
+
+headerNavSignIn.addEventListener("click", showModal);
+
+const signInClose = document.querySelector(".signin__close");
+signInClose.addEventListener("click", hideModal);
+
+window.addEventListener("click", function (event) {
+  if (event.target === modalSignIn) {
+    hideModal();
+  }
+});
+
+function showModal() {
+  modalSignIn.style.display = "block";
+}
+
+function hideModal() {
+  modalSignIn.style.display = "none";
+}
