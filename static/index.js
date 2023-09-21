@@ -186,23 +186,28 @@ rightArrow.addEventListener("click", function () {
 //開啟/關閉登入視窗
 const headerNavSignIn = document.querySelector(".header-nav__signin");
 const modalSignIn = document.querySelector(".modal-signin");
-
-headerNavSignIn.addEventListener("click", showModal);
-
 const signInClose = document.querySelector(".signin__close");
-signInClose.addEventListener("click", hideModal);
+const signUpPrompt = document.querySelector(".signup__prompt");
+
+headerNavSignIn.addEventListener("click", showModalSignIn);
+
+signInClose.addEventListener("click", hideModalSignIn);
+
+signUpPrompt.addEventListener("click", function () {
+  showModalSignIn(), hideModalSignUp();
+});
 
 window.addEventListener("click", function (event) {
   if (event.target === modalSignIn) {
-    hideModal();
+    hideModalSignIn();
   }
 });
 
-function showModal() {
+function showModalSignIn() {
   modalSignIn.style.display = "block";
 }
 
-function hideModal() {
+function hideModalSignIn() {
   modalSignIn.style.display = "none";
 }
 
@@ -214,10 +219,10 @@ signInForm.addEventListener("submit", async function (event) {
   const password = document.querySelector(".signin__password").value;
 
   const data = await fetchSignIn(email, password);
-  if (data.message) displayErrorMessage(data);
+  if (data.message) displayErrorMessage(data, ".signin__prompt");
 });
 
-//查詢帳號密碼
+//查詢會員帳號密碼
 async function fetchSignIn(email, password) {
   const response = await fetch("http://127.0.0.1:3000/api/user/auth", {
     method: "PUT",
@@ -230,9 +235,57 @@ async function fetchSignIn(email, password) {
 }
 
 //展示錯誤訊息
-function displayErrorMessage(data) {
+function displayErrorMessage(data, prompt) {
   const message = data.message;
-
-  const modalPrompt = document.querySelector(".modal__prompt");
+  const modalPrompt = document.querySelector(prompt);
   modalPrompt.textContent = message;
+}
+
+//開啟/關閉註冊視窗
+const signInPrompt = document.querySelector(".signin__prompt");
+const modalSignUp = document.querySelector(".modal-signup");
+const signUpClose = document.querySelector(".signup__close");
+
+signInPrompt.addEventListener("click", function () {
+  showModalSignUp(), hideModalSignIn();
+});
+
+signUpClose.addEventListener("click", hideModalSignUp);
+
+window.addEventListener("click", function (event) {
+  if (event.target === modalSignUp) {
+    hideModalSignUp();
+  }
+});
+
+function showModalSignUp() {
+  modalSignUp.style.display = "block";
+}
+
+function hideModalSignUp() {
+  modalSignUp.style.display = "none";
+}
+
+//註冊表單
+const signUpForm = document.querySelector(".signup__form");
+signUpForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  const name = document.querySelector(".signup__name").value;
+  const email = document.querySelector(".signup__email").value;
+  const password = document.querySelector(".signup__password").value;
+  const data = await fetchSignUp(name, email, password);
+
+  if (data.message) displayErrorMessage(data, ".signup__prompt");
+});
+
+//查詢信箱是否重複
+async function fetchSignUp(name, email, password) {
+  const response = await fetch("http://127.0.0.1:3000/api/user", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ name: name, email: email, password: password }),
+  });
+  return response.json();
 }

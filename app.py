@@ -215,7 +215,6 @@ def mrts():
 @app.route("/api/user", methods=["POST"])
 def register():
 	data = request.get_json()
-	print(data)
 	con = None
 
 	if not data:
@@ -231,7 +230,7 @@ def register():
 		search_email = cursor.fetchone()
 
 		if search_email:
-			return jsonify({"error": True, "message": "重複email"}), 400
+			return jsonify({"error": True, "message": "信箱已經被註冊"}), 400
 		else:
 			insert_member = "INSERT INTO member (username, email, password) VALUES (%s, %s, %s);"
 			cursor.execute(insert_member, (name, email, password))

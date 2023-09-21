@@ -76,12 +76,12 @@
                 登入帳戶
               </button>
             </form>
-            <p class="modal__prompt">還沒有帳戶？點此註冊</p>
+            <p class="modal__prompt signin__prompt">還沒有帳戶？點此註冊</p>
           </div>
         </div>
       </div>
 
-      <div class="modal">
+      <div class="modal modal-signup">
         <div class="signup__container modal__container">
           <div class="modal__border"></div>
           <div class="modal__content signup__content">
@@ -90,20 +90,24 @@
             </button>
             <p class="modal__title">註冊會員帳號</p>
             <form class="signup__form">
-              <input type="text" placeholder="輸入姓名" class="modal__input" />
+              <input
+                type="text"
+                placeholder="輸入姓名"
+                class="modal__input signup__name"
+              />
               <input
                 type="email"
                 placeholder="輸入電子信箱"
-                class="modal__input"
+                class="modal__input signup__email"
               />
               <input
                 type="password"
                 placeholder="輸入密碼"
-                class="modal__input"
+                class="modal__input signup__password"
               />
               <button class="modal__button button">註冊新帳戶</button>
             </form>
-            <p class="modal__prompt">已經有帳戶了？點此登入</p>
+            <p class="modal__prompt signup__prompt">已經有帳戶了？點此登入</p>
           </div>
         </div>
       </div>
