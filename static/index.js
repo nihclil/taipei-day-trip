@@ -205,3 +205,34 @@ function showModal() {
 function hideModal() {
   modalSignIn.style.display = "none";
 }
+
+//登入表單
+const signInForm = document.querySelector(".signin__form");
+signInForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  const email = document.querySelector(".signin__email").value;
+  const password = document.querySelector(".signin__password").value;
+
+  const data = await fetchSignIn(email, password);
+  if (data.message) displayErrorMessage(data);
+});
+
+//查詢帳號密碼
+async function fetchSignIn(email, password) {
+  const response = await fetch("http://127.0.0.1:3000/api/user/auth", {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ email: email, password: password }),
+  });
+  return response.json();
+}
+
+//展示錯誤訊息
+function displayErrorMessage(data) {
+  const message = data.message;
+
+  const modalPrompt = document.querySelector(".modal__prompt");
+  modalPrompt.textContent = message;
+}

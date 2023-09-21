@@ -215,6 +215,7 @@ def mrts():
 @app.route("/api/user", methods=["POST"])
 def register():
 	data = request.get_json()
+	print(data)
 	con = None
 
 	if not data:
@@ -255,11 +256,12 @@ def login():
 	try:
 		email = data["email"]
 		password = data["password"]
-
+		
 		con, cursor = con_db()
 		match_member = "SELECT * FROM member WHERE email = %s and password = %s;"
 		cursor.execute(match_member, (email, password))
 		match_result = cursor.fetchone()
+		
 		if match_result:
 			payload = {
 				"id": match_result["id"],
@@ -267,7 +269,7 @@ def login():
 				"exp": datetime.datetime.utcnow() + datetime.timedelta(days=7)
 			}
 			token = jwt.encode(payload, secret_key, algorithm="HS256")
-			return jsonify({"token": token.decode("utf-8")}), 200
+			return jsonify({"token": token}), 200
 
 		else:
 			return jsonify({"error": True, "message": "帳號或密碼錯誤"}), 400
