@@ -108,8 +108,8 @@ header {
   cursor: pointer;
 }
 
-.modal-signin {
-  display: none;
+.modal {
+  /* display: none; */
   position: fixed;
   z-index: 1;
   padding-top: 100px;
@@ -121,10 +121,8 @@ header {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
-.signin__container {
+.modal__container {
   box-sizing: border-box;
-  width: 340px;
-  height: 275px;
   border-radius: 6px;
   background-color: #ffffff;
   position: fixed;
@@ -134,7 +132,17 @@ header {
   box-shadow: 0px 4px 60px 0px #aaaaaa;
 }
 
-.signin__border {
+.signin__container {
+  width: 340px;
+  height: 275px;
+}
+
+.signup__container {
+  width: 340px;
+  height: 332px;
+}
+
+.modal__border {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   height: 10px;
@@ -142,22 +150,31 @@ header {
 }
 
 .signin__content {
-  margin: 15px;
   width: 310px;
   height: 235px;
+}
+
+.signup__content {
+  width: 310px;
+  height: 292px;
+}
+
+.modal__content {
+  margin: 15px;
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
-.signin__close {
+.modal__close {
   position: absolute;
   top: 0;
   right: 0;
   cursor: pointer;
 }
 
-.signin__title {
+.modal__title {
+  box-sizing: border-box;
   width: 310px;
   height: 27px;
   font-family: Noto Sans TC;
@@ -166,9 +183,10 @@ header {
   line-height: 24px;
   color: #666666;
   text-align: center;
+  margin-bottom: 15px;
 }
 
-.signin__input {
+.modal__input {
   font-family: Noto Sans TC;
   font-weight: 500;
   font-size: 16px;
@@ -179,17 +197,10 @@ header {
   width: 310px;
   height: 47px;
   padding: 15px;
+  margin-bottom: 10px;
 }
 
-.signin__email {
-  margin-top: 15px;
-}
-
-.signin__password {
-  margin-top: 10px;
-}
-
-.signin__button {
+.modal__button {
   box-sizing: border-box;
   padding: 10px 20px;
   border-radius: 5px;
@@ -201,10 +212,9 @@ header {
   background-color: #448899;
   width: 310px;
   height: 47px;
-  margin-top: 10px;
 }
 
-.signin__prompt {
+.modal__prompt {
   font-family: Noto Sans TC;
   font-weight: 500;
   font-size: 16px;
