@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 import os
 import jwt
 import datetime
-from flask_jwt_extended import jwt_required, get_jwt_identity
 
 load_dotenv()
 
