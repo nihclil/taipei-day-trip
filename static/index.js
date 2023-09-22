@@ -1,5 +1,5 @@
 //展現前十二筆資料
-const attractionsUrl = "http://34.225.182.0:3000/api/attractions";
+const attractionsUrl = "http://127.0.0.1:3000/api/attractions";
 let nextPage;
 let observer;
 let isFetching = false;
@@ -50,14 +50,14 @@ searchBtn.addEventListener("click", (event) => {
   });
 
   keywordSearch(
-    `http://34.225.182.0:3000/api/attractions?page=0&keyword=${keywordValue}`
+    `http://127.0.0.1:3000/api/attractions?page=0&keyword=${keywordValue}`
   ).then(() => {
     observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && !isFetching && nextPage !== null) {
           isFetching = true;
           keywordSearch(
-            `http://34.225.182.0:3000/api/attractions?page=${nextPage}&keyword=${keywordValue}`
+            `http://127.0.0.1:3000/api/attractions?page=${nextPage}&keyword=${keywordValue}`
           ).then(() => (isFetching = false));
         }
       });
@@ -94,7 +94,7 @@ function createAttractionElement(attraction) {
 
   const imgLink = document.createElement("a");
   imgLink.className = "attraction-link link-unstyled";
-  imgLink.href = `http://34.225.182.0:3000/attraction/${attraction.id}`;
+  imgLink.href = `http://127.0.0.1:3000/attraction/${attraction.id}`;
 
   const name = document.createElement("div");
   name.className = "attraction-card__name";
@@ -125,7 +125,7 @@ const rightArrow = document.querySelector(".right-arrow");
 
 //取得捷運站資料
 async function fetchMrts() {
-  const response = await fetch("http://34.225.182.0:3000/api/mrts");
+  const response = await fetch("http://127.0.0.1:3000/api/mrts");
   const data = await response.json();
 
   data.data.forEach((mrt) => {
@@ -154,7 +154,7 @@ async function fetchMrts() {
       //利用捷運站名fetch
       const stationName = searchBox.value;
       const response = await fetch(
-        `http://34.225.182.0:3000/api/attractions?keyword=${stationName}`
+        `http://127.0.0.1:3000/api/attractions?keyword=${stationName}`
       );
       const data = await response.json();
 
@@ -230,7 +230,7 @@ signInForm.addEventListener("submit", async function (event) {
 
 //查詢會員帳號密碼
 async function fetchSignIn(email, password) {
-  const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
+  const response = await fetch("http://127.0.0.1:3000/api/user/auth", {
     method: "PUT",
     headers: {
       "Content-type": "application/json",
@@ -290,7 +290,7 @@ signUpForm.addEventListener("submit", async function (event) {
 
 //查詢信箱是否重複
 async function fetchSignUp(name, email, password) {
-  const response = await fetch("http://34.225.182.0:3000/api/user", {
+  const response = await fetch("http://127.0.0.1:3000/api/user", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -303,16 +303,19 @@ async function fetchSignUp(name, email, password) {
 //檢查會員登入流程
 document.addEventListener("DOMContentLoaded", function () {
   checkLoginStatus();
-  clickToLogOut(logout);
+  clickToLogOut();
 });
 
 //按下登出按鈕
-function clickToLogOut(f) {
+function clickToLogOut() {
   const actionButton = document.querySelector(".header-nav__signin");
   actionButton.addEventListener("click", function () {
     const isLogout = actionButton.textContent === "登出系統";
     if (isLogout) {
-      f();
+      logout();
+      hideModalSignIn();
+      hideModalSignUp();
+      window.location.reload();
     }
   });
 }
@@ -320,13 +323,12 @@ function clickToLogOut(f) {
 //清空Token
 function logout() {
   localStorage.removeItem("token");
-  window.location.reload();
 }
 
 //確認token
 async function checkLoginStatus() {
   const token = localStorage.getItem("token");
-  const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
+  const response = await fetch("http://127.0.0.1:3000/api/user/auth", {
     moethod: "GET",
     headers: {
       "Content-Type": "application/json",

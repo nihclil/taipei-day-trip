@@ -300,16 +300,19 @@ async function fetchSignUp(name, email, password) {
 //檢查會員登入流程
 document.addEventListener("DOMContentLoaded", function () {
   checkLoginStatus();
-  clickToLogOut(logout);
+  clickToLogOut();
 });
 
 //按下登出按鈕
-function clickToLogOut(f) {
+function clickToLogOut() {
   const actionButton = document.querySelector(".header-nav__signin");
   actionButton.addEventListener("click", function () {
     const isLogout = actionButton.textContent === "登出系統";
     if (isLogout) {
-      f();
+      logout();
+      hideModalSignIn();
+      hideModalSignUp();
+      window.location.reload();
     }
   });
 }
