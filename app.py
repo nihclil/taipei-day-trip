@@ -232,8 +232,10 @@ def register():
 		if search_email:
 			return jsonify({"error": True, "message": "信箱已經被註冊"}), 400
 		else:
+			print(name,email,password)
 			insert_member = "INSERT INTO member (username, email, password) VALUES (%s, %s, %s);"
 			cursor.execute(insert_member, (name, email, password))
+			con.commit()
 			con.close()
 			return jsonify({"ok": True}), 200
 
@@ -282,20 +284,38 @@ def login():
 
 
 @app.route("/api/user/auth", methods=["GET"])
-@jwt_required
 def get_user():
-	current_user = get_jwt_identity()
-	con = None
-	con, cursor = con_db()
-	get_member_info = "SELECT id, username, email FROM member WHERE id = %s;"
-	cursor.execute(get_member_info, (current_user["id"],))
-	user_info = cursor.fetchone()
-	con.close()
+	auth_header = request.headers.get("Authorization")
+	print(auth_header)
+	
+	if not auth_header or auth_header == "Bearer null":
+		return jsonify(None)
 
-	if user_info:
-		return jsonify({"data": user_info}), 200
-	else:
-		return jsonify({"data": {None}})
+	try:
+		token = auth_header.split(" ")[1]
+		payload = jwt.decode(token, secret_key, algorithms=["HS256"])
+		
+		payload_id = payload["id"]
+		payload_email = payload["email"]
 
+		con, cursor = con_db()
+		match_member = "SELECT * FROM member WHERE id = %s and email = %s;"
+		cursor.execute(match_member, (payload_id, payload_email))
+		match_result = cursor.fetchone()
+		if match_result:
+			id = match_result["id"]
+			name = match_result["username"]
+			email = match_result["email"]
 
+			return jsonify({"data":{
+					"id":id,
+					"name":name,
+					"email":email 
+				}})
+		con.close()
+
+	except Exception as e:
+		print("An error occurred:", e)
+		return jsonify(None)
+	
 app.run(host="0.0.0.0", port=3000, debug=True)

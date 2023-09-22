@@ -219,7 +219,13 @@ signInForm.addEventListener("submit", async function (event) {
   const password = document.querySelector(".signin__password").value;
 
   const data = await fetchSignIn(email, password);
-  if (data.message) displayErrorMessage(data, ".signin__prompt");
+  if (data.token) {
+    localStorage.setItem("token", data.token);
+    window.location.reload();
+  } else {
+    const message = data.message;
+    displayMessage(message, ".signin__prompt");
+  }
 });
 
 //查詢會員帳號密碼
@@ -234,9 +240,8 @@ async function fetchSignIn(email, password) {
   return response.json();
 }
 
-//展示錯誤訊息
-function displayErrorMessage(data, prompt) {
-  const message = data.message;
+//展示訊息
+function displayMessage(message, prompt) {
   const modalPrompt = document.querySelector(prompt);
   modalPrompt.textContent = message;
 }
@@ -274,8 +279,13 @@ signUpForm.addEventListener("submit", async function (event) {
   const email = document.querySelector(".signup__email").value;
   const password = document.querySelector(".signup__password").value;
   const data = await fetchSignUp(name, email, password);
-
-  if (data.message) displayErrorMessage(data, ".signup__prompt");
+  console.log(data);
+  if (data.ok) {
+    displayMessage("註冊成功", ".signup__prompt");
+  } else {
+    const message = data.message;
+    displayMessage(message, ".signup__prompt");
+  }
 });
 
 //查詢信箱是否重複
@@ -288,4 +298,51 @@ async function fetchSignUp(name, email, password) {
     body: JSON.stringify({ name: name, email: email, password: password }),
   });
   return response.json();
+}
+
+//檢查會員登入流程
+document.addEventListener("DOMContentLoaded", function () {
+  checkLoginStatus();
+  clickToLogOut(logout);
+});
+
+//按下登出按鈕
+function clickToLogOut(f) {
+  const actionButton = document.querySelector(".header-nav__signin");
+  actionButton.addEventListener("click", function () {
+    const isLogout = actionButton.textContent === "登出系統";
+    if (isLogout) {
+      f();
+    }
+  });
+}
+
+//清空Token
+function logout() {
+  localStorage.removeItem("token");
+  window.location.reload();
+}
+
+//確認token
+async function checkLoginStatus() {
+  const token = localStorage.getItem("token");
+  const response = await fetch("http://127.0.0.1:3000/api/user/auth", {
+    moethod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  if (data) {
+    displayActionButton(data);
+  }
+}
+
+//登入/登出文字呈現
+function displayActionButton(data) {
+  const actionButton = document.querySelector(".header-nav__signin");
+  if (data.data) {
+    actionButton.textContent = "登出系統";
+  }
 }
