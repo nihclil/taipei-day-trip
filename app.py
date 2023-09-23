@@ -3,12 +3,15 @@ import mysql.connector
 from flask import *
 from dotenv import load_dotenv
 import os
+import jwt
+import datetime
+
+load_dotenv()
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-
-load_dotenv()
+secret_key = os.getenv("JWT_SECRET_KEY")
 
 db_user = os.getenv("DB_USERNAME")
 db_pass = os.getenv("DB_PASSWORD")
@@ -204,7 +207,114 @@ def mrts():
 		return jsonify({'data': mrts_arr})
 
 	except Exception as e:
+		print("An error occurred:", e)
 		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
 
 
+@app.route("/api/user", methods=["POST"])
+def register():
+	data = request.get_json()
+	con = None
+
+	if not data:
+		return jsonify({"error": True, "message": "註冊失敗"}), 400
+	try:
+		name = data["name"]
+		email = data["email"]
+		password = data["password"]
+
+		con, cursor = con_db()
+		search_member = "SELECT email FROM member WHERE email = %s;"
+		cursor.execute(search_member, (email,))
+		search_email = cursor.fetchone()
+
+		if search_email:
+			return jsonify({"error": True, "message": "信箱已經被註冊"}), 400
+		else:
+			print(name,email,password)
+			insert_member = "INSERT INTO member (username, email, password) VALUES (%s, %s, %s);"
+			cursor.execute(insert_member, (name, email, password))
+			con.commit()
+			con.close()
+			return jsonify({"ok": True}), 200
+
+	except Exception as e:
+		print("An error occurred:", e)
+		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
+
+	finally:
+		con.close()
+
+
+@app.route("/api/user/auth", methods=["PUT"])
+def login():
+	data = request.get_json()
+	con = None
+
+	if not data:
+		return jsonify({"error": True, "message": "登入失敗"}), 400
+	try:
+		email = data["email"]
+		password = data["password"]
+		
+		con, cursor = con_db()
+		match_member = "SELECT * FROM member WHERE email = %s and password = %s;"
+		cursor.execute(match_member, (email, password))
+		match_result = cursor.fetchone()
+		
+		if match_result:
+			payload = {
+				"id": match_result["id"],
+				"email": match_result["email"],
+				"exp": datetime.datetime.utcnow() + datetime.timedelta(days=7)
+			}
+			token = jwt.encode(payload, secret_key, algorithm="HS256")
+			return jsonify({"token": token}), 200
+
+		else:
+			return jsonify({"error": True, "message": "帳號或密碼錯誤"}), 400
+
+	except Exception as e:
+		print("An error occurred:", e)
+		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
+
+	finally:
+		con.close()
+
+
+@app.route("/api/user/auth", methods=["GET"])
+def get_user():
+	auth_header = request.headers.get("Authorization")
+	print(auth_header)
+	
+	if not auth_header or auth_header == "Bearer null":
+		return jsonify(None)
+
+	try:
+		token = auth_header.split(" ")[1]
+		payload = jwt.decode(token, secret_key, algorithms=["HS256"])
+		
+		payload_id = payload["id"]
+		payload_email = payload["email"]
+
+		con, cursor = con_db()
+		match_member = "SELECT * FROM member WHERE id = %s and email = %s;"
+		cursor.execute(match_member, (payload_id, payload_email))
+		match_result = cursor.fetchone()
+		if match_result:
+			id = match_result["id"]
+			name = match_result["username"]
+			email = match_result["email"]
+
+			return jsonify({"data":{
+					"id":id,
+					"name":name,
+					"email":email 
+				}})
+		con.close()
+
+	except Exception as e:
+		print("An error occurred:", e)
+		return jsonify(None)
+	
 app.run(host="0.0.0.0", port=3000, debug=True)

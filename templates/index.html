@@ -13,42 +13,113 @@
     />
   </head>
   <body>
-    <nav class="nav">
-      <div class="container">
-        <a href="http://34.225.182.0:3000/" class="title">台北一日遊</a>
-        <div class="items">
-          <div class="item"><button class="nav-btn btn">預定行程</button></div>
-          <div class="item"><button class="nav-btn btn">登入/註冊</button></div>
+    <header>
+      <nav class="header-nav">
+        <a
+          href="http://34.225.182.0:3000/"
+          class="header-nav__title link-unstyled"
+          >台北一日遊</a
+        >
+        <div class="header-nav__actions">
+          <button class="text-button text-button--p10 button">預定行程</button>
+          <button
+            class="header-nav__signin text-button text-button--p10 button"
+          >
+            登入/註冊
+          </button>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
 
     <div class="hero-section">
-      <div class="welcome">
-        <div class="slogan">
-          <div class="enjoy">輕鬆享受台北一日悠閒</div>
-          <div class="explore">探索每個角落，體驗城市的深度旅遊行程</div>
+      <div class="hero-section__container">
+        <div class="hero-section__slogan">
+          <p class="hero-section__primary-text">輕鬆享受台北一日悠閒</p>
+          <p class="hero-section__secondary-text">
+            探索每個角落，體驗城市的深度旅遊行程
+          </p>
         </div>
 
-        <div class="search">
+        <div class="hero-section__search">
           <input
             id="keyword"
             type="search"
             placeholder="輸入景點名稱查詢"
-            class="search-box"
+            class="hero-section__input"
           />
-          <button class="search-btn btn"><img src="static/btn.png" /></button>
+          <button class="hero-section__button button">
+            <img src="static/btn.png" />
+          </button>
         </div>
       </div>
     </div>
 
     <main>
-      <nav class="spots-list">
-        <button class="left-arrow btn">
+      <div class="modal modal-signin">
+        <div class="signin__container modal__container">
+          <div class="modal__border"></div>
+          <div class="modal__content signin__content">
+            <button class="modal__close signin__close button">
+              <img src="static/icon_close.png" />
+            </button>
+            <p class="modal__title">登入會員帳號</p>
+            <form class="signin__form">
+              <input
+                type="email"
+                placeholder="輸入電子信箱"
+                class="modal__input signin__email"
+              />
+              <input
+                type="password"
+                placeholder="輸入密碼"
+                class="modal__input signin__password"
+              />
+              <button class="modal__button signin__button button">
+                登入帳戶
+              </button>
+            </form>
+            <p class="modal__prompt signin__prompt">還沒有帳戶？點此註冊</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal modal-signup">
+        <div class="signup__container modal__container">
+          <div class="modal__border"></div>
+          <div class="modal__content signup__content">
+            <button class="modal__close signup__close button">
+              <img src="static/icon_close.png" />
+            </button>
+            <p class="modal__title">註冊會員帳號</p>
+            <form class="signup__form">
+              <input
+                type="text"
+                placeholder="輸入姓名"
+                class="modal__input signup__name"
+              />
+              <input
+                type="email"
+                placeholder="輸入電子信箱"
+                class="modal__input signup__email"
+              />
+              <input
+                type="password"
+                placeholder="輸入密碼"
+                class="modal__input signup__password"
+              />
+              <button class="modal__button button">註冊新帳戶</button>
+            </form>
+            <p class="modal__prompt signup__prompt">已經有帳戶了？點此登入</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="station-list">
+        <button class="station-list__arrow left-arrow button">
           <img src="static/left container.png" />
         </button>
-        <div class="scrollable-list"></div>
-        <button class="right-arrow btn">
+        <div class="station-list__container"></div>
+        <button class="station-list__arrow right-arrow button">
           <img src="static/right container.png" />
         </button>
       </nav>
