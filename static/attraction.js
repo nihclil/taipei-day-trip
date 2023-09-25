@@ -1,7 +1,7 @@
 //取得景點編號
 window.addEventListener("DOMContentLoaded", function () {
   const attractionId = getAttractionId();
-  fetchApiUrl(`http://34.225.182.0:3000/api/attraction/${attractionId}`);
+  fetchApiUrl(`http://127.0.0.1:3000/api/attraction/${attractionId}`);
 });
 
 function getAttractionId() {
@@ -227,7 +227,7 @@ signInForm.addEventListener("submit", async function (event) {
 
 //查詢會員帳號密碼
 async function fetchSignIn(email, password) {
-  const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
+  const response = await fetch("http://127.0.0.1:3000/api/user/auth", {
     method: "PUT",
     headers: {
       "Content-type": "application/json",
@@ -287,7 +287,7 @@ signUpForm.addEventListener("submit", async function (event) {
 
 //查詢信箱是否重複
 async function fetchSignUp(name, email, password) {
-  const response = await fetch("http://34.225.182.0:3000/api/user", {
+  const response = await fetch("http://127.0.0.1:3000/api/user", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -326,7 +326,7 @@ function logout() {
 //確認token
 async function checkLoginStatus() {
   const token = localStorage.getItem("token");
-  const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
+  const response = await fetch("http://127.0.0.1:3000/api/user/auth", {
     moethod: "GET",
     headers: {
       "Content-Type": "application/json",
