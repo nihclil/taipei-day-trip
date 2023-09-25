@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*按鈕預設樣式移除*/
+.button {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+header {
+  box-sizing: border-box;
+  display: flex;
+  height: 54px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  width: 1200px;
+  margin: auto;
+}
+
+.link-unstyled {
+  text-decoration: none;
+}
+
+.header-nav__title {
+  color: #448899;
+  font-family: Noto Sans TC;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.header-nav__actions {
+  flex: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.text-button {
+  color: #666666;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.text-button--p10 {
+  padding: 10px;
+}
