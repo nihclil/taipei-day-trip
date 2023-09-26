@@ -395,4 +395,29 @@ def get_booking():
 	finally:
 		con.close()
 
+@app.route("/api/booking", methods=["DELETE"]) 
+def delete_booking():
+	auth_header = request.headers.get("Authorization")
+
+	if not auth_header or auth_header == "Bearer null":
+		return jsonify({"error": True, "message": "未登入系統，拒絕存取" }), 403
+	
+	try:
+		token = auth_header.split(" ")[1]
+		payload = jwt.decode(token, secret_key, algorithms=["HS256"])
+
+		member_id = payload["id"]
+
+		con, cursor = con_db()
+		booking_infos = "DELETE FROM booking WHERE member_id = %s;"
+		cursor.execute(booking_infos,(member_id,))
+		con.commit()
+		return jsonify({"ok": True})
+
+	except Exception as e:
+		print("An error occurred:", e)
+	
+	finally:
+		con.close()
+
 app.run(host="0.0.0.0", port=3000, debug=True)
