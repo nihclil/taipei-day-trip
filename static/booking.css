@@ -17,6 +17,7 @@ header {
   display: flex;
   height: 54px;
   border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 40px;
 }
 
 .header-nav {
@@ -53,4 +54,37 @@ header {
 
 .text-button--p10 {
   padding: 10px;
+}
+
+main {
+  width: 1200px;
+  margin: auto;
+}
+
+.headline {
+  width: 1000px;
+  margin: 0px auto 40px auto;
+}
+
+.headline__content {
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 19px;
+  color: #666666;
+}
+
+.attraction-infos {
+  width: 980px;
+  height: 200px;
+  margin: auto;
+}
+
+.attraction-image {
+  width: 250px;
+  height: 200px;
+}
+
+.attraction-image__img {
+  width: 100%;
+  height: 100%;
 }
