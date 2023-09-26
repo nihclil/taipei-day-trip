@@ -352,4 +352,47 @@ def create_booking():
 	finally:
 		con.close()
 
+@app.route("/api/booking", methods=["GET"])
+def get_booking():
+	auth_header = request.headers.get("Authorization")
+
+	if not auth_header or auth_header == "Bearer null":
+		return jsonify({"error": True, "message":"未登入系統，拒絕存取"}), 400
+	
+	try:
+		token = auth_header.split(" ")[1]
+		payload = jwt.decode(token, secret_key, algorithms=["HS256"])
+
+		member_id = payload["id"]
+
+		con, cursor = con_db()
+		booking_infos = "SELECT attractions.id, attractions.name, attractions.address, attractions.images, booking.date, booking.time, booking.price FROM attractions INNER JOIN booking ON booking.attraction_id = attractions.id INNER JOIN pictures ON pictures.attractions_id = attractions.id WHERE booking.member_id = %s;"
+		cursor.execute(booking_infos,(member_id,))
+		booking_result = cursor.fetchone()
+		con.commit()
+
+		if booking_result:
+			for info in booking_result:
+				info_dict = {
+					"attraction": {
+							"id": booking_result["id"],
+							"name": booking_result["name"],
+							"address": booking_result["address"],
+							"image":booking_result["images"]
+						},
+					"date": booking_result["date"],
+					"time": booking_result["time"],
+					"price": booking_result["price"]
+					}
+			return jsonify(info_dict),200
+		
+		else:
+			return jsonify(None)
+
+	except Exception as e:
+		print("An error occurred:", e)
+
+	finally:
+		con.close()
+
 app.run(host="0.0.0.0", port=3000, debug=True)
