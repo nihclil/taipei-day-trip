@@ -73,7 +73,7 @@ main {
   color: #666666;
 }
 
-.attraction-infos {
+.attraction-info {
   width: 980px;
   height: 200px;
   margin: auto;
@@ -134,4 +134,62 @@ main {
   right: 0;
   width: 30px;
   height: 30px;
+}
+
+.separator {
+  width: 1200px;
+  box-sizing: border-box;
+  border: 1px solid #e8e8e8;
+  margin: 40px auto 40px auto;
+}
+
+.contant-form {
+  width: 980px;
+  height: 227px;
+  margin: auto;
+}
+
+.info-section__header {
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 19px;
+  color: #666666;
+  margin-bottom: 20px;
+}
+
+.info-section__field {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.info-section__label {
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #666666;
+}
+
+.info-section__input {
+  height: 100%;
+  border: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000000;
+}
+
+.info-section__notice {
+  box-sizing: border-box;
+  height: 24px;
+  padding: 5px 0px 5px 0px;
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 16px;
+  color: #666666;
+  line-height: 13.3px;
 }
