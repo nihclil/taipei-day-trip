@@ -197,3 +197,34 @@ main {
   width: 980px;
   margin: auto;
 }
+
+.confirm {
+  width: 980px;
+  height: 100px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.confirm__price {
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 16px;
+  color: #666666;
+}
+
+.confirm__button {
+  background-color: #448899;
+  color: #ffffff;
+  font-family: Noto Sans TC;
+  font-weight: 400;
+  font-size: 19px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  line-height: 16px;
+  width: 173px;
+  height: 36px;
+  border: transparent;
+  margin-top: 42px;
+}
