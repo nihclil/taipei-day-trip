@@ -145,7 +145,6 @@ main {
 
 .contant-form {
   width: 980px;
-  height: 227px;
   margin: auto;
 }
 
@@ -192,4 +191,9 @@ main {
   font-size: 16px;
   color: #666666;
   line-height: 13.3px;
+}
+
+.payment-form {
+  width: 980px;
+  margin: auto;
 }
