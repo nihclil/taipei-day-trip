@@ -116,8 +116,9 @@ async function fetchSignUp(name, email, password) {
 }
 
 //檢查會員登入流程
-document.addEventListener("DOMContentLoaded", function () {
-  checkLoginStatus();
+document.addEventListener("DOMContentLoaded", async function () {
+  const isLoggedIn = await checkLoginStatus();
+  if (isLoggedIn) displayActionButton();
   clickToLogOut();
 });
 
@@ -143,6 +144,7 @@ function logout() {
 //確認token
 async function checkLoginStatus() {
   const token = localStorage.getItem("token");
+  if (!token) return false;
   const response = await fetch("http://127.0.0.1:3000/api/user/auth", {
     moethod: "GET",
     headers: {
@@ -151,15 +153,11 @@ async function checkLoginStatus() {
     },
   });
   const data = await response.json();
-  if (data) {
-    displayActionButton(data);
-  }
+  return data && data.data ? true : false;
 }
 
 //登入/登出文字呈現
-function displayActionButton(data) {
+function displayActionButton() {
   const actionButton = document.querySelector(".header-nav__signin");
-  if (data.data) {
-    actionButton.textContent = "登出系統";
-  }
+  actionButton.textContent = "登出系統";
 }
