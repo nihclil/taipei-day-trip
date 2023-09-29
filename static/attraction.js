@@ -354,3 +354,32 @@ headerNavBooking.addEventListener("click", async function () {
     showModalSignIn();
   }
 });
+
+//建立預定行程
+const bookingButton = document.querySelector(".booking-button");
+bookingButton.addEventListener("click", async function () {
+  if (await checkLoginStatus()) {
+    const token = localStorage.getItem("token");
+    const response = await fetch("http://127.0.0.1:3000/api/booking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        attractionId: getAttractionId(),
+        date: document.querySelector(".date").value,
+        time: document.querySelector('input[name="time"]:checked').value,
+        price:
+          document.querySelector('input[name="time"]:checked').value ===
+          "morning"
+            ? 2000
+            : 2500,
+      }),
+    });
+    const data = await response.json();
+    if (data.ok) document.location.href = "http://127.0.0.1:3000/booking";
+  } else {
+    showModalSignIn();
+  }
+});

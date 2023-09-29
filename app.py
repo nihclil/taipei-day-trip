@@ -320,6 +320,7 @@ def get_user():
 @app.route("/api/booking", methods=["POST"])
 def create_booking():
 	auth_header = request.headers.get("Authorization")
+	con = None
 
 	if not auth_header or auth_header == "Bearer null":
 		return jsonify({"error": True, "message": "未登入系統，拒絕存取" }), 403
@@ -340,7 +341,16 @@ def create_booking():
 			return jsonify({"error": True, "message": "建立失敗，輸入不正確或其他原因"}), 400
 
 		con, cursor = con_db()
+
+		cursor.execute("SELECT * FROM booking WHERE member_id = %s;",(member_id,))
+		existing_booking = cursor.fetchall()
+		print(existing_booking)
+		if existing_booking:
+			cursor.execute("DELETE FROM booking WHERE member_id = %s;",(member_id,))
+			con.commit()
+
 		booking_infos = "INSERT INTO booking (member_id, attraction_id, date, time, price) VALUES (%s, %s, %s, %s, %s);"
+
 		cursor.execute(booking_infos,(member_id, attraction_id, date, time, price))
 		con.commit()
 		return jsonify({"ok": True}), 200
@@ -350,7 +360,8 @@ def create_booking():
 		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
 
 	finally:
-		con.close()
+		if con:
+			con.close()
 
 @app.route("/api/booking", methods=["GET"])
 def get_booking():
