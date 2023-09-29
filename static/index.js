@@ -346,3 +346,14 @@ function displayActionButton() {
   const actionButton = document.querySelector(".header-nav__signin");
   actionButton.textContent = "登出系統";
 }
+
+//預定行程文字連結處理;
+const headerNavBooking = document.querySelector(".header-nav__booking");
+headerNavBooking.addEventListener("click", async function () {
+  const isLoggedIn = await checkLoginStatus();
+  if (isLoggedIn) {
+    document.location.href = "http://127.0.0.1:3000/booking";
+  } else {
+    showModalSignIn();
+  }
+});
