@@ -366,6 +366,7 @@ def create_booking():
 @app.route("/api/booking", methods=["GET"])
 def get_booking():
 	auth_header = request.headers.get("Authorization")
+	con = None
 
 	if not auth_header or auth_header == "Bearer null":
 		return jsonify({"error": True, "message":"未登入系統，拒絕存取"}), 400
@@ -377,24 +378,24 @@ def get_booking():
 		member_id = payload["id"]
 
 		con, cursor = con_db()
-		booking_infos = "SELECT attractions.id, attractions.name, attractions.address, attractions.images, booking.date, booking.time, booking.price FROM attractions INNER JOIN booking ON booking.attraction_id = attractions.id INNER JOIN pictures ON pictures.attractions_id = attractions.id WHERE booking.member_id = %s;"
+		booking_infos = "SELECT pictures.attractions_id, pictures.name, pictures.address, pictures.file, booking.date, booking.time, booking.price FROM attractions INNER JOIN booking ON booking.attraction_id = attractions.id INNER JOIN pictures ON pictures.attractions_id = attractions.id WHERE booking.member_id = %s;"
 		cursor.execute(booking_infos,(member_id,))
 		booking_result = cursor.fetchone()
+		remaining_rows = cursor.fetchall() 
 		con.commit()
 
 		if booking_result:
-			for info in booking_result:
-				info_dict = {
-					"attraction": {
-							"id": booking_result["id"],
-							"name": booking_result["name"],
-							"address": booking_result["address"],
-							"image":booking_result["images"]
-						},
-					"date": booking_result["date"],
-					"time": booking_result["time"],
-					"price": booking_result["price"]
-					}
+			info_dict = {
+				"attraction": {
+						"id": booking_result["attractions_id"],
+						"name": booking_result["name"],
+						"address": booking_result["address"],
+						"image":booking_result["file"]
+					},
+				"date": booking_result["date"],
+				"time": booking_result["time"],
+				"price": booking_result["price"]
+				}
 			return jsonify(info_dict),200
 		
 		else:
@@ -402,9 +403,11 @@ def get_booking():
 
 	except Exception as e:
 		print("An error occurred:", e)
-
+		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
+	
 	finally:
-		con.close()
+		if con:
+			con.close()
 
 @app.route("/api/booking", methods=["DELETE"]) 
 def delete_booking():
