@@ -56,6 +56,12 @@ header {
   padding: 10px;
 }
 
+.page__container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 main {
   width: 1200px;
   margin: auto;
@@ -175,6 +181,21 @@ main {
   text-align: center;
   margin-top: 10px;
   cursor: pointer;
+}
+
+.empty-state {
+  width: 1000px;
+  height: 24px;
+  margin: auto;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #666666;
+}
+
+.headline--empty {
+  width: 1000px;
+  margin: 0px auto 30px auto;
 }
 
 .headline {
@@ -345,14 +366,36 @@ main {
   margin-top: 22px;
 }
 
-footer {
+.footer--booking {
   margin-top: 40px;
   box-sizing: border-box;
   height: 104px;
   background-color: #757575;
+  flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.footer--empty {
+  margin-top: 40px;
+  box-sizing: border-box;
+  height: 104px;
+  background-color: #757575;
+  flex-grow: 1;
+  display: flex;
+  padding-top: 40px;
+}
+
+.footer__word--empty {
+  text-align: center;
+  margin: 0px auto;
+  width: 234px;
+  height: 24px;
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
 }
 
 .footer__word {

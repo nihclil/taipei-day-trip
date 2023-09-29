@@ -34,166 +34,177 @@
         </div>
       </nav>
     </header>
-
-    <main>
-      <div class="modal modal-signin">
-        <div class="signin__container modal__container">
-          <div class="modal__border"></div>
-          <div class="modal__content signin__content">
-            <button class="modal__close signin__close button">
-              <img src="static/icon_close.png" />
-            </button>
-            <p class="modal__title">登入會員帳號</p>
-            <form class="signin__form">
-              <input
-                type="email"
-                placeholder="輸入電子信箱"
-                class="modal__input signin__email"
-              />
-              <input
-                type="password"
-                placeholder="輸入密碼"
-                class="modal__input signin__password"
-              />
-              <button class="modal__button signin__button button">
-                登入帳戶
+    <div class="page__container">
+      <main>
+        <div class="modal modal-signin">
+          <div class="signin__container modal__container">
+            <div class="modal__border"></div>
+            <div class="modal__content signin__content">
+              <button class="modal__close signin__close button">
+                <img src="static/icon_close.png" />
               </button>
-            </form>
-            <p class="modal__prompt signin__prompt">還沒有帳戶？點此註冊</p>
+              <p class="modal__title">登入會員帳號</p>
+              <form class="signin__form">
+                <input
+                  type="email"
+                  placeholder="輸入電子信箱"
+                  class="modal__input signin__email"
+                />
+                <input
+                  type="password"
+                  placeholder="輸入密碼"
+                  class="modal__input signin__password"
+                />
+                <button class="modal__button signin__button button">
+                  登入帳戶
+                </button>
+              </form>
+              <p class="modal__prompt signin__prompt">還沒有帳戶？點此註冊</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="modal modal-signup">
-        <div class="signup__container modal__container">
-          <div class="modal__border"></div>
-          <div class="modal__content signup__content">
-            <button class="modal__close signup__close button">
-              <img src="static/icon_close.png" />
-            </button>
-            <p class="modal__title">註冊會員帳號</p>
-            <form class="signup__form">
+        <div class="modal modal-signup">
+          <div class="signup__container modal__container">
+            <div class="modal__border"></div>
+            <div class="modal__content signup__content">
+              <button class="modal__close signup__close button">
+                <img src="static/icon_close.png" />
+              </button>
+              <p class="modal__title">註冊會員帳號</p>
+              <form class="signup__form">
+                <input
+                  type="text"
+                  placeholder="輸入姓名"
+                  class="modal__input signup__name"
+                />
+                <input
+                  type="email"
+                  placeholder="輸入電子信箱"
+                  class="modal__input signup__email"
+                />
+                <input
+                  type="password"
+                  placeholder="輸入密碼"
+                  class="modal__input signup__password"
+                />
+                <button class="modal__button button">註冊新帳戶</button>
+              </form>
+              <p class="modal__prompt signup__prompt">已經有帳戶了？點此登入</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="headline">
+          <p class="headline__content"></p>
+        </div>
+        <div class="main-info">
+          <section class="attraction-info">
+            <figure class="attraction-image">
+              <img class="attraction-image__img" src="/static/welcome.png" />
+            </figure>
+            <div class="attraction-detail">
+              <p class="attraction-detail__title">台北一日遊：平安鐘</p>
+              <p class="attraction-detail__container">
+                <span class="attraction-detail__label">日期：</span
+                ><span
+                  class="attraction-detail__info attraction-detail__date"
+                ></span>
+              </p>
+              <p class="attraction-detail__container">
+                <span class="attraction-detail__label">時間：</span
+                ><span
+                  class="attraction-detail__info attraction-detail__time"
+                ></span>
+              </p>
+              <p class="attraction-detail__container">
+                <span class="attraction-detail__label">費用：</span
+                ><span
+                  class="attraction-detail__info attraction-detail__price"
+                ></span>
+              </p>
+              <p class="attraction-detail__container">
+                <span class="attraction-detail__label">地點：</span
+                ><span
+                  class="attraction-detail__info attraction-detail__address"
+                ></span>
+              </p>
+              <div class="attraction-detail__icon">
+                <img src="/static/icon_delete.png" />
+              </div>
+            </div>
+          </section>
+          <div class="separator"></div>
+          <section class="contant-form">
+            <div class="info-section__header">您的聯絡資訊</div>
+            <div class="info-section__field">
+              <label for="name" class="info-section__label">聯絡姓名：</label>
+              <input type="text" id="name" class="info-section__input" />
+            </div>
+
+            <div class="info-section__field">
+              <label for="email" class="info-section__label">電子郵箱：</label>
+              <input type="email" id="email" class="info-section__input" />
+            </div>
+
+            <div class="info-section__field">
+              <label for="phone" class="info-section__label">聯絡電話：</label>
+              <input type="text" id="phone" class="info-section__input" />
+            </div>
+            <div class="info-section__notice">
+              請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
+            </div>
+          </section>
+          <div class="separator"></div>
+
+          <section class="payment-form">
+            <div class="info-section__header">信用卡付款資訊</div>
+            <div class="info-section__field">
+              <label for="card-number" class="info-section__label"
+                >卡片號碼：</label
+              >
               <input
                 type="text"
-                placeholder="輸入姓名"
-                class="modal__input signup__name"
+                id="card-number"
+                class="info-section__input"
+                placeholder="**** **** **** ****"
               />
+            </div>
+
+            <div class="info-section__field">
+              <label for="expiry-date" class="info-section__label"
+                >過期時間：</label
+              >
               <input
-                type="email"
-                placeholder="輸入電子信箱"
-                class="modal__input signup__email"
+                type="text"
+                id="expiry-date"
+                class="info-section__input"
+                placeholder="MM / YY"
               />
+            </div>
+
+            <div class="info-section__field">
+              <label for="cvv" class="info-section__label">驗證密碼：</label>
               <input
-                type="password"
-                placeholder="輸入密碼"
-                class="modal__input signup__password"
+                type="text"
+                id="cvv"
+                class="info-section__input"
+                placeholder="CVV"
               />
-              <button class="modal__button button">註冊新帳戶</button>
-            </form>
-            <p class="modal__prompt signup__prompt">已經有帳戶了？點此登入</p>
+            </div>
+          </section>
+          <div class="separator"></div>
+          <div class="confirm">
+            <p class="confirm__price">總價：新台幣 2000 元</p>
+            <button class="confirm__button">確認訂購並付款</button>
           </div>
         </div>
-      </div>
+      </main>
 
-      <div class="headline">
-        <p class="headline__content">您好，Yakko，待預定的行程如下：</p>
-      </div>
-
-      <section class="attraction-info">
-        <figure class="attraction-image">
-          <img class="attraction-image__img" src="/static/welcome.png" />
-        </figure>
-        <div class="attraction-detail">
-          <p class="attraction-detail__title">台北一日遊：平安鐘</p>
-          <p class="attraction-detail__container">
-            <span class="attraction-detail__label">日期：</span
-            ><span class="attraction-detail__info">2021-04-23</span>
-          </p>
-          <p class="attraction-detail__container">
-            <span class="attraction-detail__label">時間：</span
-            ><span class="attraction-detail__info">早上9點到下午4點</span>
-          </p>
-          <p class="attraction-detail__container">
-            <span class="attraction-detail__label">費用：</span
-            ><span class="attraction-detail__info">新台幣2000元</span>
-          </p>
-          <p class="attraction-detail__container">
-            <span class="attraction-detail__label">地點：</span
-            ><span class="attraction-detail__info"
-              >臺北市大安區忠孝東路4段</span
-            >
-          </p>
-          <div class="attraction-detail__icon">
-            <img src="/static/icon_delete.png" />
-          </div>
-        </div>
-      </section>
-      <div class="separator"></div>
-      <section class="contant-form">
-        <div class="info-section__header">您的聯絡資訊</div>
-        <div class="info-section__field">
-          <label for="name" class="info-section__label">聯絡姓名：</label>
-          <input type="text" id="name" class="info-section__input" />
-        </div>
-
-        <div class="info-section__field">
-          <label for="email" class="info-section__label">電子郵箱：</label>
-          <input type="email" id="email" class="info-section__input" />
-        </div>
-
-        <div class="info-section__field">
-          <label for="phone" class="info-section__label">聯絡電話：</label>
-          <input type="text" id="phone" class="info-section__input" />
-        </div>
-        <div class="info-section__notice">
-          請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
-        </div>
-      </section>
-      <div class="separator"></div>
-
-      <section class="payment-form">
-        <div class="info-section__header">信用卡付款資訊</div>
-        <div class="info-section__field">
-          <label for="card-number" class="info-section__label"
-            >卡片號碼：</label
-          >
-          <input
-            type="text"
-            id="card-number"
-            class="info-section__input"
-            placeholder="**** **** **** ****"
-          />
-        </div>
-
-        <div class="info-section__field">
-          <label for="expiry-date" class="info-section__label"
-            >過期時間：</label
-          >
-          <input
-            type="text"
-            id="expiry-date"
-            class="info-section__input"
-            placeholder="MM / YY"
-          />
-        </div>
-
-        <div class="info-section__field">
-          <label for="cvv" class="info-section__label">驗證密碼：</label>
-          <input
-            type="text"
-            id="cvv"
-            class="info-section__input"
-            placeholder="CVV"
-          />
-        </div>
-      </section>
-      <div class="separator"></div>
-      <div class="confirm">
-        <p class="confirm__price">總價：新台幣 2000 元</p>
-        <button class="confirm__button">確認訂購並付款</button>
-      </div>
-    </main>
-    <footer><p class="footer__word">COPYRIGHT © 2023 台北一日遊</p></footer>
+      <footer class="footer--booking">
+        <p class="footer__word">COPYRIGHT © 2023 台北一日遊</p>
+      </footer>
+    </div>
     <script src="/static/booking.js"></script>
   </body>
 </html>

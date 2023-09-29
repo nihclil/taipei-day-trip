@@ -386,6 +386,7 @@ def get_booking():
 
 		if booking_result:
 			info_dict = {
+				
 				"attraction": {
 						"id": booking_result["attractions_id"],
 						"name": booking_result["name"],
@@ -396,7 +397,7 @@ def get_booking():
 				"time": booking_result["time"],
 				"price": booking_result["price"]
 				}
-			return jsonify(info_dict),200
+			return jsonify({"data":info_dict}),200
 		
 		else:
 			return jsonify(None)

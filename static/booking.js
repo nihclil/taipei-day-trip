@@ -94,7 +94,7 @@ signUpForm.addEventListener("submit", async function (event) {
   const email = document.querySelector(".signup__email").value;
   const password = document.querySelector(".signup__password").value;
   const data = await fetchSignUp(name, email, password);
-  console.log(data);
+
   if (data.ok) {
     displayMessage("註冊成功", ".signup__prompt");
   } else {
@@ -115,17 +115,32 @@ async function fetchSignUp(name, email, password) {
   return response.json();
 }
 
-//檢查會員登入流程，未登入導回首頁
+//頁面出現時該處理的邏輯
 document.addEventListener("DOMContentLoaded", async function () {
   const isLoggedIn = await checkLoginStatus();
   if (isLoggedIn) {
     displayActionButton();
     clickToLogOut();
-    fetchGetBooking();
+    const bookingData = await fetchGetBooking();
+    const user = await fetchUser();
+    updateBookingUI(bookingData, user);
   } else {
     document.location.href = "http://127.0.0.1:3000/";
   }
 });
+
+//fetch 當前使用者資料
+async function fetchUser() {
+  const token = localStorage.getItem("token");
+  const response = await fetch("http://127.0.0.1:3000/api/user/auth", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return await response.json();
+}
 
 //fetch 預定行程API
 async function fetchGetBooking() {
@@ -137,8 +152,68 @@ async function fetchGetBooking() {
       Authorization: `Bearer ${token}`,
     },
   });
-  const data = await response.json();
-  console.log(data);
+
+  return await response.json();
+}
+
+//更新booking介面
+function updateBookingUI(data, user) {
+  if (data !== null) {
+    const userName = user.data.name;
+    const headline = document.querySelector(".headline__content");
+    headline.textContent = `您好，${userName}，待預定的行程如下：`;
+
+    const title = data.data.attraction.name;
+    const attractionTitle = document.querySelector(".attraction-detail__title");
+    attractionTitle.textContent = `台北一日遊：${title}`;
+
+    const date = data.data.date;
+    const attractionDate = document.querySelector(".attraction-detail__date");
+    attractionDate.textContent = date;
+
+    const time = data.data.time;
+    const attractionTime = document.querySelector(".attraction-detail__time");
+    time === "morning"
+      ? (attractionTime.textContent = "上半天")
+      : (attractionTime.textContent = "下半天");
+
+    const price = data.data.price;
+    const attractionPrice = document.querySelector(".attraction-detail__price");
+    attractionPrice.textContent = `新台幣 ${price} 元`;
+
+    const address = data.data.attraction.address;
+    const attractionAddress = document.querySelector(
+      ".attraction-detail__address"
+    );
+    attractionAddress.textContent = address;
+
+    const image = data.data.attraction.image;
+    const attractionImage = document.querySelector(".attraction-image__img");
+    attractionImage.src = image;
+  } else {
+    const userName = user.data.name;
+    const headlineContent = document.querySelector(".headline__content");
+    headlineContent.textContent = `您好，${userName}，待預定的行程如下：`;
+
+    const headline = document.querySelector(".headline");
+    headline.className = "headline--empty";
+
+    const mainInfo = document.querySelector(".main-info");
+    mainInfo.style.display = "none";
+
+    const main = document.querySelector("main");
+
+    const emptyState = document.createElement("div");
+    emptyState.className = "empty-state";
+    emptyState.textContent = "目前沒有任何的預定行程";
+    main.appendChild(emptyState);
+
+    const footerWord = document.querySelector(".footer__word");
+    footerWord.className = "footer__word--empty";
+
+    const footer = document.querySelector("footer");
+    footer.className = "footer--empty";
+  }
 }
 
 //按下登出按鈕
