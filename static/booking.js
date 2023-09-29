@@ -115,12 +115,31 @@ async function fetchSignUp(name, email, password) {
   return response.json();
 }
 
-//檢查會員登入流程
+//檢查會員登入流程，未登入導回首頁
 document.addEventListener("DOMContentLoaded", async function () {
   const isLoggedIn = await checkLoginStatus();
-  if (isLoggedIn) displayActionButton();
-  clickToLogOut();
+  if (isLoggedIn) {
+    displayActionButton();
+    clickToLogOut();
+    fetchGetBooking();
+  } else {
+    document.location.href = "http://127.0.0.1:3000/";
+  }
 });
+
+//fetch 預定行程API
+async function fetchGetBooking() {
+  const token = localStorage.getItem("token");
+  const response = await fetch("http://127.0.0.1:3000/api/booking", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  console.log(data);
+}
 
 //按下登出按鈕
 function clickToLogOut() {
