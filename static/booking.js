@@ -262,7 +262,7 @@ function logout() {
 async function checkLoginStatus() {
   const token = localStorage.getItem("token");
   if (!token) return false;
-  const response = await fetch("http://127.0.0.1:3000/api/user/auth", {
+  const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
     moethod: "GET",
     headers: {
       "Content-Type": "application/json",
