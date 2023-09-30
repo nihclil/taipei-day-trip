@@ -1,0 +1,546 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*按鈕預設樣式移除*/
+.button {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+header {
+  box-sizing: border-box;
+  display: flex;
+  height: 54px;
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 40px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  width: 1200px;
+  margin: auto;
+}
+
+.link-unstyled {
+  text-decoration: none;
+}
+
+.header-nav__title {
+  color: #448899;
+  font-family: Noto Sans TC;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.header-nav__actions {
+  flex: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.text-button {
+  color: #666666;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.text-button--p10 {
+  padding: 10px;
+}
+
+.page__container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  width: 1200px;
+  margin: auto;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.modal__container {
+  box-sizing: border-box;
+  border-radius: 6px;
+  background-color: #ffffff;
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0px 4px 60px 0px #aaaaaa;
+}
+
+.signin__container {
+  width: 340px;
+  height: 275px;
+}
+
+.signup__container {
+  width: 340px;
+  height: 332px;
+}
+
+.modal__border {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  height: 10px;
+  background-image: linear-gradient(90deg, #66aabb, #337788);
+}
+
+.signin__content {
+  width: 310px;
+  height: 235px;
+}
+
+.signup__content {
+  width: 310px;
+  height: 292px;
+}
+
+.modal__content {
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.modal__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.modal__title {
+  box-sizing: border-box;
+  width: 310px;
+  height: 27px;
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  color: #666666;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.modal__input {
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #757575;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  width: 310px;
+  height: 47px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.modal__button {
+  box-sizing: border-box;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-family: Noto Sans TC;
+  font-weight: 400;
+  font-size: 19px;
+  color: #ffffff;
+  box-sizing: border-box;
+  background-color: #448899;
+  width: 310px;
+  height: 47px;
+}
+
+.modal__prompt {
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #666666;
+  text-align: center;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.empty-state {
+  width: 1000px;
+  height: 24px;
+  margin: auto;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #666666;
+}
+
+.headline--empty {
+  width: 1000px;
+  margin: 0px auto 30px auto;
+}
+
+.headline {
+  width: 1000px;
+  margin: 0px auto 40px auto;
+}
+
+.headline__content {
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 19px;
+  color: #666666;
+}
+
+.attraction-info {
+  width: 980px;
+  height: 200px;
+  margin: auto;
+  display: flex;
+  position: relative;
+}
+
+.attraction-image {
+  width: 250px;
+  height: 200px;
+}
+
+.attraction-image__img {
+  width: 100%;
+  height: 100%;
+}
+
+.attraction-detail {
+  margin-left: 30px;
+  width: 700px;
+  height: 170px;
+}
+
+.attraction-detail__title,
+.attraction-detail__label,
+.attraction-detail__info {
+  font-family: Noto Sans TC;
+  font-size: 16px;
+  color: #666666;
+}
+
+.attraction-detail__title {
+  color: #448899;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.attraction-detail__label {
+  font-weight: 700;
+}
+
+.attraction-detail__info {
+  font-weight: 500;
+}
+
+.attraction-detail__container {
+  box-sizing: border-box;
+  height: 24px;
+  padding: 5px 0px 5px 0px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.attraction-detail__icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+}
+
+.separator {
+  width: 1200px;
+  box-sizing: border-box;
+  border: 1px solid #e8e8e8;
+  margin: 40px auto 40px auto;
+}
+
+.contant-form {
+  width: 980px;
+  margin: auto;
+}
+
+.info-section__header {
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 19px;
+  color: #666666;
+  margin-bottom: 20px;
+}
+
+.info-section__field {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.info-section__label {
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #666666;
+}
+
+.info-section__input {
+  height: 100%;
+  border: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000000;
+}
+
+.info-section__notice {
+  box-sizing: border-box;
+  height: 24px;
+  padding: 5px 0px 5px 0px;
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 16px;
+  color: #666666;
+  line-height: 13.3px;
+}
+
+.payment-form {
+  width: 980px;
+  margin: auto;
+}
+
+.confirm {
+  width: 980px;
+  height: 100px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.confirm__price {
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 16px;
+  color: #666666;
+}
+
+.confirm__button {
+  background-color: #448899;
+  color: #ffffff;
+  font-family: Noto Sans TC;
+  font-weight: 400;
+  font-size: 19px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  line-height: 16px;
+  width: 173px;
+  height: 36px;
+  border: transparent;
+  margin-top: 22px;
+}
+
+.footer--booking {
+  margin-top: 40px;
+  box-sizing: border-box;
+  height: 104px;
+  background-color: #757575;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer--empty {
+  margin-top: 40px;
+  box-sizing: border-box;
+  height: 104px;
+  background-color: #757575;
+  flex-grow: 1;
+  display: flex;
+  padding-top: 40px;
+}
+
+.footer__word--empty {
+  text-align: center;
+  margin: 0px auto;
+  width: 234px;
+  height: 24px;
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.footer__word {
+  text-align: center;
+  margin: 40px auto;
+  width: 234px;
+  height: 24px;
+  font-family: Noto Sans TC;
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+  main {
+    width: 100%;
+  }
+
+  .empty-state {
+    width: auto;
+  }
+
+  .headline--empty {
+    width: auto;
+  }
+
+  .headline {
+    width: 360px;
+  }
+
+  .attraction-info {
+    width: 340px;
+    height: auto;
+    display: block;
+  }
+
+  .attraction-image {
+    width: 340px;
+    height: 200px;
+  }
+
+  .attraction-detail {
+    margin-top: 30px;
+    margin-left: 0;
+    width: 340px;
+    height: 200px;
+  }
+
+  .attraction-detail__icon {
+    right: 0;
+    top: auto;
+    bottom: 0;
+  }
+
+  .separator {
+    width: auto;
+    margin: 30px auto 30px auto;
+  }
+
+  .contant-form {
+    width: 340px;
+    height: 256px;
+  }
+
+  .info-section__notice {
+    box-sizing: border-box;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    line-height: 23.17px;
+  }
+
+  .payment-form {
+    width: 340px;
+  }
+
+  .confirm {
+    width: 340px;
+  }
+}
+
+@media screen and (min-width: 360px) and (max-width: 600px) {
+  main {
+    width: 100%;
+  }
+
+  .empty-state {
+    width: auto;
+  }
+
+  .headline--empty {
+    width: auto;
+  }
+
+  .headline {
+    width: 360px;
+  }
+
+  .attraction-info {
+    width: 340px;
+    height: auto;
+    display: block;
+  }
+
+  .attraction-image {
+    width: 340px;
+    height: 200px;
+  }
+
+  .attraction-detail {
+    margin-top: 30px;
+    margin-left: 0;
+    width: 340px;
+    height: 200px;
+  }
+
+  .attraction-detail__icon {
+    right: 0;
+    top: auto;
+    bottom: 0;
+  }
+
+  .separator {
+    width: auto;
+    margin: 30px auto 30px auto;
+  }
+
+  .contant-form {
+    width: 340px;
+    height: 256px;
+  }
+
+  .info-section__notice {
+    box-sizing: border-box;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    line-height: 23.17px;
+  }
+
+  .payment-form {
+    width: 340px;
+  }
+
+  .confirm {
+    width: 340px;
+  }
+}

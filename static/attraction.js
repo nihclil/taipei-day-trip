@@ -298,8 +298,9 @@ async function fetchSignUp(name, email, password) {
 }
 
 //檢查會員登入流程
-document.addEventListener("DOMContentLoaded", function () {
-  checkLoginStatus();
+document.addEventListener("DOMContentLoaded", async function () {
+  const isLoggedIn = await checkLoginStatus();
+  if (isLoggedIn) displayActionButton();
   clickToLogOut();
 });
 
@@ -320,12 +321,12 @@ function clickToLogOut() {
 //清空Token
 function logout() {
   localStorage.removeItem("token");
-  window.location.reload();
 }
 
 //確認token
 async function checkLoginStatus() {
   const token = localStorage.getItem("token");
+  if (!token) return false;
   const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
     moethod: "GET",
     headers: {
@@ -334,15 +335,57 @@ async function checkLoginStatus() {
     },
   });
   const data = await response.json();
-  if (data) {
-    displayActionButton(data);
-  }
+  return data && data.data ? true : false;
 }
 
 //登入/登出文字呈現
-function displayActionButton(data) {
+function displayActionButton() {
   const actionButton = document.querySelector(".header-nav__signin");
-  if (data.data) {
-    actionButton.textContent = "登出系統";
-  }
+  actionButton.textContent = "登出系統";
 }
+
+//預定行程文字連結處理;
+const headerNavBooking = document.querySelector(".header-nav__booking");
+headerNavBooking.addEventListener("click", async function () {
+  const isLoggedIn = await checkLoginStatus();
+  if (isLoggedIn) {
+    document.location.href = "http://34.225.182.0:3000/booking";
+  } else {
+    showModalSignIn();
+  }
+});
+
+//建立預定行程
+const bookingButton = document.querySelector(".booking-button");
+bookingButton.addEventListener("click", async function () {
+  const date = document.querySelector(".date");
+
+  if (await checkLoginStatus()) {
+    if (!date.value) {
+      alert("請輸入日期");
+      return;
+    }
+    const token = localStorage.getItem("token");
+    const response = await fetch("http://34.225.182.0:3000/api/booking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        attractionId: getAttractionId(),
+        date: date.value,
+        time: document.querySelector('input[name="time"]:checked').value,
+        price:
+          document.querySelector('input[name="time"]:checked').value ===
+          "morning"
+            ? 2000
+            : 2500,
+      }),
+    });
+    const data = await response.json();
+    if (data.ok) document.location.href = "http://34.225.182.0:3000/booking";
+  } else {
+    showModalSignIn();
+  }
+});

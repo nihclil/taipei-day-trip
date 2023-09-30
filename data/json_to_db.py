@@ -37,20 +37,21 @@ with open("taipei-attractions.json", mode="r", encoding="utf-8") as attractions_
         name = spot['name']
         cat = spot['CAT']
         url = spot['file']
-        file = spot['file'].split('https')
-
-        for pic in file:
-            pic = pic.replace('JPG', 'jpg')
-            if 'jpg' in pic:
-                picture = 'https' + pic
-                cursor.execute('INSERT INTO pictures (attractions_id, name, file) VALUES (%s, %s, %s);', (spot_id, name, picture))
-                con.commit()
 
         cursor.execute(
             'INSERT INTO attractions (id, name, category, description, address, transport, lng, lat, mrt, images) VALUES '
             '(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);',
             (spot_id, name, cat, description, address, direction, longitude, latitude, mrt, url))
         con.commit()
+
+        file = spot['file'].split('https')
+
+        for pic in file:
+            pic = pic.replace('JPG', 'jpg')
+            if 'jpg' in pic:
+                picture = 'https' + pic
+                cursor.execute('INSERT INTO pictures (attractions_id, name, address, file) VALUES (%s, %s, %s, %s);', (spot_id, name, address, picture))
+                con.commit()
 
         cursor.execute('INSERT INTO transportation (attractions_id, name,MRT) VALUES (%s, %s, %s);',
                        (spot_id, name, mrt))

@@ -285,7 +285,6 @@ def login():
 @app.route("/api/user/auth", methods=["GET"])
 def get_user():
 	auth_header = request.headers.get("Authorization")
-	print(auth_header)
 	
 	if not auth_header or auth_header == "Bearer null":
 		return jsonify(None)
@@ -317,4 +316,123 @@ def get_user():
 		print("An error occurred:", e)
 		return jsonify(None)
 	
+
+@app.route("/api/booking", methods=["POST"])
+def create_booking():
+	auth_header = request.headers.get("Authorization")
+	con = None
+
+	if not auth_header or auth_header == "Bearer null":
+		return jsonify({"error": True, "message": "未登入系統，拒絕存取" }), 403
+
+	try:
+		token = auth_header.split(" ")[1]
+		payload = jwt.decode(token, secret_key, algorithms=["HS256"])
+		
+		member_id = payload["id"]
+
+		data = request.get_json()
+		attraction_id = data.get("attractionId", None)
+		date = data.get("date", None)
+		time = data.get("time", None)
+		price = data.get("price", None)
+
+		if None in [attraction_id, date, time, price]:
+			return jsonify({"error": True, "message": "建立失敗，輸入不正確或其他原因"}), 400
+
+		con, cursor = con_db()
+
+		cursor.execute("SELECT * FROM booking WHERE member_id = %s;",(member_id,))
+		existing_booking = cursor.fetchall()
+		print(existing_booking)
+		if existing_booking:
+			cursor.execute("DELETE FROM booking WHERE member_id = %s;",(member_id,))
+			con.commit()
+
+		booking_infos = "INSERT INTO booking (member_id, attraction_id, date, time, price) VALUES (%s, %s, %s, %s, %s);"
+
+		cursor.execute(booking_infos,(member_id, attraction_id, date, time, price))
+		con.commit()
+		return jsonify({"ok": True}), 200
+		
+	except Exception as e:
+		print("An error occurred:", e)
+		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
+
+	finally:
+		if con:
+			con.close()
+
+@app.route("/api/booking", methods=["GET"])
+def get_booking():
+	auth_header = request.headers.get("Authorization")
+	con = None
+
+	if not auth_header or auth_header == "Bearer null":
+		return jsonify({"error": True, "message":"未登入系統，拒絕存取"}), 400
+	
+	try:
+		token = auth_header.split(" ")[1]
+		payload = jwt.decode(token, secret_key, algorithms=["HS256"])
+
+		member_id = payload["id"]
+
+		con, cursor = con_db()
+		booking_infos = "SELECT pictures.attractions_id, pictures.name, pictures.address, pictures.file, booking.date, booking.time, booking.price FROM attractions INNER JOIN booking ON booking.attraction_id = attractions.id INNER JOIN pictures ON pictures.attractions_id = attractions.id WHERE booking.member_id = %s;"
+		cursor.execute(booking_infos,(member_id,))
+		booking_result = cursor.fetchone()
+		remaining_rows = cursor.fetchall() 
+		con.commit()
+
+		if booking_result:
+			info_dict = {
+				
+				"attraction": {
+						"id": booking_result["attractions_id"],
+						"name": booking_result["name"],
+						"address": booking_result["address"],
+						"image":booking_result["file"]
+					},
+				"date": booking_result["date"],
+				"time": booking_result["time"],
+				"price": booking_result["price"]
+				}
+			return jsonify({"data":info_dict}),200
+		
+		else:
+			return jsonify(None)
+
+	except Exception as e:
+		print("An error occurred:", e)
+		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
+	
+	finally:
+		if con:
+			con.close()
+
+@app.route("/api/booking", methods=["DELETE"]) 
+def delete_booking():
+	auth_header = request.headers.get("Authorization")
+
+	if not auth_header or auth_header == "Bearer null":
+		return jsonify({"error": True, "message": "未登入系統，拒絕存取" }), 403
+	
+	try:
+		token = auth_header.split(" ")[1]
+		payload = jwt.decode(token, secret_key, algorithms=["HS256"])
+
+		member_id = payload["id"]
+
+		con, cursor = con_db()
+		booking_infos = "DELETE FROM booking WHERE member_id = %s;"
+		cursor.execute(booking_infos,(member_id,))
+		con.commit()
+		return jsonify({"ok": True})
+
+	except Exception as e:
+		print("An error occurred:", e)
+	
+	finally:
+		con.close()
+
 app.run(host="0.0.0.0", port=3000, debug=True)
