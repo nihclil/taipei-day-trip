@@ -122,6 +122,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     displayActionButton();
     clickToLogOut();
     const bookingData = await fetchGetBooking();
+
     const user = await fetchUser();
     updateBookingUI(bookingData, user);
   } else {
@@ -214,6 +215,28 @@ function updateBookingUI(data, user) {
     const footer = document.querySelector("footer");
     footer.className = "footer--empty";
   }
+}
+
+//刪除預定按鈕
+const deleteButton = document.querySelector(".attraction-detail__icon");
+deleteButton.addEventListener("click", async function () {
+  const data = await fetchDeleteBooking();
+  if (data.ok) {
+    location.reload();
+  }
+});
+
+//fetch 刪除預定行程API
+async function fetchDeleteBooking() {
+  const token = localStorage.getItem("token");
+  const response = await fetch("http://127.0.0.1:3000/api/booking", {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return await response.json();
 }
 
 //按下登出按鈕
