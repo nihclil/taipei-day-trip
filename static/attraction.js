@@ -358,7 +358,13 @@ headerNavBooking.addEventListener("click", async function () {
 //建立預定行程
 const bookingButton = document.querySelector(".booking-button");
 bookingButton.addEventListener("click", async function () {
+  const date = document.querySelector(".date");
+
   if (await checkLoginStatus()) {
+    if (!date.value) {
+      alert("請輸入日期");
+      return;
+    }
     const token = localStorage.getItem("token");
     const response = await fetch("http://127.0.0.1:3000/api/booking", {
       method: "POST",
@@ -368,7 +374,7 @@ bookingButton.addEventListener("click", async function () {
       },
       body: JSON.stringify({
         attractionId: getAttractionId(),
-        date: document.querySelector(".date").value,
+        date: date.value,
         time: document.querySelector('input[name="time"]:checked').value,
         price:
           document.querySelector('input[name="time"]:checked').value ===
