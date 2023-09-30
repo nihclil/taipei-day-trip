@@ -1,7 +1,7 @@
 //取得景點編號
 window.addEventListener("DOMContentLoaded", function () {
   const attractionId = getAttractionId();
-  fetchApiUrl(`hhttp://34.225.182.0:3000/api/attraction/${attractionId}`);
+  fetchApiUrl(`http://34.225.182.0:3000/api/attraction/${attractionId}`);
 });
 
 function getAttractionId() {
