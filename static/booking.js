@@ -45,7 +45,7 @@ signInForm.addEventListener("submit", async function (event) {
 
 //查詢會員帳號密碼
 async function fetchSignIn(email, password) {
-  const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
+  const response = await fetch(" http://127.0.0.1:3000/api/user/auth", {
     method: "PUT",
     headers: {
       "Content-type": "application/json",
@@ -105,7 +105,7 @@ signUpForm.addEventListener("submit", async function (event) {
 
 //查詢信箱是否重複
 async function fetchSignUp(name, email, password) {
-  const response = await fetch("http://34.225.182.0:3000/api/user", {
+  const response = await fetch(" http://127.0.0.1:3000/api/user", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -126,14 +126,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     const user = await fetchUser();
     updateBookingUI(bookingData, user);
   } else {
-    document.location.href = "http://34.225.182.0:3000/";
+    document.location.href = " http://127.0.0.1:3000/";
   }
 });
 
 //fetch 當前使用者資料
 async function fetchUser() {
   const token = localStorage.getItem("token");
-  const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
+  const response = await fetch(" http://127.0.0.1:3000/api/user/auth", {
     method: "GET",
     headers: {
       "Content-type": "application/json",
@@ -146,7 +146,7 @@ async function fetchUser() {
 //fetch 預定行程API
 async function fetchGetBooking() {
   const token = localStorage.getItem("token");
-  const response = await fetch("http://34.225.182.0:3000/api/booking", {
+  const response = await fetch(" http://127.0.0.1:3000/api/booking", {
     method: "GET",
     headers: {
       "Content-type": "application/json",
@@ -229,7 +229,7 @@ deleteButton.addEventListener("click", async function () {
 //fetch 刪除預定行程API
 async function fetchDeleteBooking() {
   const token = localStorage.getItem("token");
-  const response = await fetch("http://34.225.182.0:3000/api/booking", {
+  const response = await fetch(" http://127.0.0.1:3000/api/booking", {
     method: "DELETE",
     headers: {
       "Content-type": "application/json",
@@ -262,7 +262,7 @@ function logout() {
 async function checkLoginStatus() {
   const token = localStorage.getItem("token");
   if (!token) return false;
-  const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
+  const response = await fetch(" http://127.0.0.1:3000/api/user/auth", {
     moethod: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -289,3 +289,88 @@ headerNavBooking.addEventListener("click", async function () {
     showModalSignIn();
   }
 });
+
+TPDirect.setupSDK(
+  137090,
+  "app_3PdgcCqmukYmKUWvnRspySlULtA0jLMJNOBp9LlYxP7pRP4LPiBSWW2xIPxs",
+  "sandbox"
+);
+
+TPDirect.card.setup({
+  fields: {
+    number: {
+      element: "#card-number",
+      placeholder: "**** **** **** ****",
+    },
+    expirationDate: {
+      element: "#card-expiration-date",
+      placeholder: "MM / YY",
+    },
+  },
+
+  styles: {
+    ".valid": {
+      color: "green",
+    },
+    ".invalid": {
+      color: "red",
+    },
+    input: {
+      color: "#000000",
+    },
+  },
+});
+
+TPDirect.ccv.setup({
+  fields: {
+    ccv: {
+      element: "#card-ccv",
+      placeholder: "ccv",
+    },
+  },
+  styles: {
+    input: {
+      color: "#000000",
+    },
+    ".valid": {
+      color: "green",
+    },
+    ".invalid": {
+      color: "red",
+    },
+  },
+});
+
+//金流設定
+let ccvStatus = null;
+
+TPDirect.ccv.onUpdate((update) => {
+  ccvStatus = update;
+  console.log(update);
+});
+
+const confirmButton = document.querySelector(".confirm__button");
+
+function onSubmit(event) {
+  event.preventDefault();
+
+  // 取得 TapPay Fields 的 status
+  const tappayStatus = TPDirect.card.getTappayFieldsStatus();
+
+  // 確認是否可以 getPrime
+  if (!tappayStatus.canGetPrime || (ccvStatus && !ccvStatus.canGetPrime)) {
+    alert("卡片資訊或CCV有誤，請再次檢查");
+    return;
+  }
+
+  // Get prime
+  TPDirect.card.getPrime((result) => {
+    if (result.status !== 0) {
+      alert("get prime error " + result.msg);
+      return;
+    }
+    alert("get prime 成功，prime: " + result.card.prime);
+  });
+}
+
+document.querySelector(".confirm__button").addEventListener("click", onSubmit);

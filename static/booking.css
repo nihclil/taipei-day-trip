@@ -294,10 +294,24 @@ main {
 }
 
 .info-section__field {
+  width: 980px;
   height: 38px;
   display: flex;
   align-items: center;
   margin-bottom: 15px;
+}
+
+.tpfield {
+  width: 200px;
+  height: 100%;
+  border: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: Noto Sans TC;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000000;
 }
 
 .info-section__label {
@@ -308,6 +322,7 @@ main {
 }
 
 .info-section__input {
+  width: 200px;
   height: 100%;
   border: 1px solid #e8e8e8;
   box-sizing: border-box;
