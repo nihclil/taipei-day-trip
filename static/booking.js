@@ -401,6 +401,7 @@ async function purchaseButton() {
 
 async function fetchApiOrder(bookingData, prime, name, email, phone) {
   const token = localStorage.getItem("token");
+
   const response = await fetch("http://127.0.0.1:3000/api/orders", {
     method: "POST",
     headers: {
@@ -410,7 +411,7 @@ async function fetchApiOrder(bookingData, prime, name, email, phone) {
     body: JSON.stringify({
       prime: prime,
       order: {
-        price: bookingData.price,
+        price: bookingData.data.price,
         trip: {
           attraction: {
             id: bookingData.data.attraction.id,
