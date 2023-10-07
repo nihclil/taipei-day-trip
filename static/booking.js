@@ -45,7 +45,7 @@ signInForm.addEventListener("submit", async function (event) {
 
 //查詢會員帳號密碼
 async function fetchSignIn(email, password) {
-  const response = await fetch(" http://127.0.0.1:3000/api/user/auth", {
+  const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
     method: "PUT",
     headers: {
       "Content-type": "application/json",
@@ -105,7 +105,7 @@ signUpForm.addEventListener("submit", async function (event) {
 
 //查詢信箱是否重複
 async function fetchSignUp(name, email, password) {
-  const response = await fetch(" http://127.0.0.1:3000/api/user", {
+  const response = await fetch("http://34.225.182.0:3000/api/user", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -126,14 +126,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     const user = await fetchUser();
     updateBookingUI(bookingData, user);
   } else {
-    document.location.href = " http://127.0.0.1:3000/";
+    document.location.href = "http://34.225.182.0:3000/";
   }
 });
 
 //fetch 當前使用者資料
 async function fetchUser() {
   const token = localStorage.getItem("token");
-  const response = await fetch(" http://127.0.0.1:3000/api/user/auth", {
+  const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
     method: "GET",
     headers: {
       "Content-type": "application/json",
@@ -146,7 +146,7 @@ async function fetchUser() {
 //fetch 預定行程API
 async function fetchGetBooking() {
   const token = localStorage.getItem("token");
-  const response = await fetch(" http://127.0.0.1:3000/api/booking", {
+  const response = await fetch("http://34.225.182.0:3000/api/booking", {
     method: "GET",
     headers: {
       "Content-type": "application/json",
@@ -228,7 +228,7 @@ deleteButton.addEventListener("click", async function () {
 //fetch 刪除預定行程API
 async function fetchDeleteBooking() {
   const token = localStorage.getItem("token");
-  const response = await fetch(" http://127.0.0.1:3000/api/booking", {
+  const response = await fetch("http://34.225.182.0:3000/api/booking", {
     method: "DELETE",
     headers: {
       "Content-type": "application/json",
@@ -261,7 +261,7 @@ function logout() {
 async function checkLoginStatus() {
   const token = localStorage.getItem("token");
   if (!token) return false;
-  const response = await fetch(" http://127.0.0.1:3000/api/user/auth", {
+  const response = await fetch("http://34.225.182.0:3000/api/user/auth", {
     moethod: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -283,7 +283,7 @@ const headerNavBooking = document.querySelector(".header-nav__booking");
 headerNavBooking.addEventListener("click", async function () {
   const isLoggedIn = await checkLoginStatus();
   if (isLoggedIn) {
-    document.location.href = "http://127.0.0.1:3000/booking";
+    document.location.href = "http://34.225.182.0:3000/booking";
   } else {
     showModalSignIn();
   }
@@ -375,7 +375,7 @@ confirmButton.addEventListener("click", async function () {
 
       if (orderData.data) {
         const number = orderData.data.number;
-        window.location.href = `http://127.0.0.1:3000/thankyou?number=${number}`;
+        window.location.href = `http://34.225.182.0:3000/thankyou?number=${number}`;
       }
     }
   } catch (error) {
@@ -406,7 +406,7 @@ async function purchaseButton() {
 async function fetchApiOrder(bookingData, prime, name, email, phone) {
   const token = localStorage.getItem("token");
 
-  const response = await fetch("http://127.0.0.1:3000/api/orders", {
+  const response = await fetch("http://34.225.182.0:3000/api/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
