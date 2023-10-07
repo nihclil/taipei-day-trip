@@ -153,7 +153,6 @@ async function fetchGetBooking() {
       Authorization: `Bearer ${token}`,
     },
   });
-
   return await response.json();
 }
 
@@ -284,8 +283,156 @@ const headerNavBooking = document.querySelector(".header-nav__booking");
 headerNavBooking.addEventListener("click", async function () {
   const isLoggedIn = await checkLoginStatus();
   if (isLoggedIn) {
-    document.location.href = "http://127.0.0.1:3000/booking";
+    document.location.href = "http://34.225.182.0:3000/booking";
   } else {
     showModalSignIn();
   }
 });
+
+TPDirect.setupSDK(
+  137090,
+  "app_3PdgcCqmukYmKUWvnRspySlULtA0jLMJNOBp9LlYxP7pRP4LPiBSWW2xIPxs",
+  "sandbox"
+);
+
+TPDirect.card.setup({
+  fields: {
+    number: {
+      element: "#card-number",
+      placeholder: "**** **** **** ****",
+    },
+    expirationDate: {
+      element: "#card-expiration-date",
+      placeholder: "MM / YY",
+    },
+  },
+
+  styles: {
+    ".valid": {
+      color: "green",
+    },
+    ".invalid": {
+      color: "red",
+    },
+    input: {
+      color: "#000000",
+    },
+  },
+});
+
+TPDirect.ccv.setup({
+  fields: {
+    ccv: {
+      element: "#card-ccv",
+      placeholder: "ccv",
+    },
+  },
+  styles: {
+    input: {
+      color: "#000000",
+    },
+    ".valid": {
+      color: "green",
+    },
+    ".invalid": {
+      color: "red",
+    },
+  },
+});
+
+//金流設定
+let ccvStatus = null;
+
+TPDirect.ccv.onUpdate((update) => {
+  ccvStatus = update;
+});
+
+//點擊確認付款按鍵
+const confirmButton = document.querySelector(".confirm__button");
+confirmButton.addEventListener("click", async function () {
+  try {
+    const prime = await purchaseButton();
+    if (prime) {
+      const bookingData = await fetchGetBooking();
+
+      // 這裡進行表單驗證
+      let name = document.querySelector("#name").value;
+      let email = document.querySelector("#email").value;
+      let phone = document.querySelector("#phone").value;
+
+      if (!name || !email || !phone) {
+        alert("請填寫所有必要的資訊");
+        return;
+      }
+
+      const orderData = await fetchApiOrder(
+        bookingData,
+        prime,
+        name,
+        email,
+        phone
+      );
+
+      if (orderData.data) {
+        const number = orderData.data.number;
+        window.location.href = `http://34.225.182.0:3000/thankyou?number=${number}`;
+      }
+    }
+  } catch (error) {
+    console.log("error:", error);
+  }
+});
+
+async function purchaseButton() {
+  // 取得 TapPay Fields 的 status
+  const tappayStatus = TPDirect.card.getTappayFieldsStatus();
+
+  // 確認是否可以 getPrime
+  if (!tappayStatus.canGetPrime || (ccvStatus && !ccvStatus.canGetPrime)) {
+    alert("卡片資訊或CCV有誤，請再次檢查");
+    return false;
+  }
+
+  return new Promise((resolve, reject) => {
+    TPDirect.card.getPrime((result) => {
+      if (result.status !== 0) {
+        reject(false);
+      }
+      resolve(result.card.prime);
+    });
+  });
+}
+
+async function fetchApiOrder(bookingData, prime, name, email, phone) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch("http://34.225.182.0:3000/api/orders", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      prime: prime,
+      order: {
+        price: bookingData.data.price,
+        trip: {
+          attraction: {
+            id: bookingData.data.attraction.id,
+            name: bookingData.data.attraction.name,
+            address: bookingData.data.attraction.address,
+            image: bookingData.data.attraction.image,
+          },
+          date: bookingData.data.date,
+          time: bookingData.data.time,
+        },
+        contact: {
+          name: name,
+          email: email,
+          phone: phone,
+        },
+      },
+    }),
+  });
+  return await response.json();
+}

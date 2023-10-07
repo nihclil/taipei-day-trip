@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 import os
 import jwt
 import datetime
+import shortuuid
+import requests
 
 load_dotenv()
 
@@ -434,5 +436,106 @@ def delete_booking():
 	
 	finally:
 		con.close()
+
+
+@app.route("/api/orders", methods=["POST"])
+def add_order():
+	auth_header = request.headers.get("Authorization")
+
+	if not auth_header or auth_header == "Bearer null":
+		return jsonify({"error": True, "message": "未登入系統，拒絕存取" }), 403
+
+	try:
+		token = auth_header.split(" ")[1]
+		payload = jwt.decode(token, secret_key, algorithms=["HS256"])
+		member_id = payload["id"]
+
+		data = request.get_json()
+
+		prime = data.get("prime", None)
+		order = data.get("order", {})
+		price = order.get("price", None)
+		contact = order.get("contact", None)
+	
+		name = contact.get("name", None)
+		email = contact.get("email", None)
+		phone = contact.get("phone", None)
+
+
+
+		if not prime:
+			return jsonify({"error":True, "message":"訂單建立失敗，輸入不正確或其他原因"}), 400
+
+		if not contact:
+			return jsonify({"error":True, "message":"訂單建立失敗，輸入不正確或其他原因"}), 400
+
+		if not name or not email or not phone:
+			return jsonify({"error":True, "message":"訂單建立失敗，輸入不正確或其他原因"}), 400
+
+		current_date = datetime.datetime.now().strftime("%Y%m%d")
+		uuid = shortuuid.ShortUUID().random(length=8)
+		number = current_date + uuid
+
+		message = "未付款"
+		status = 0
+		attraction_id = data["order"]["trip"]["attraction"]["id"]
+
+		con, cursor = con_db()
+		order_infos = "INSERT INTO orders (member_id, name, email, phone, number, message, status, attractions_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
+		cursor.execute(order_infos, (member_id, name, email, phone, number, message, status, attraction_id))
+		con.commit()
+
+		tappay_response = send_to_tappay(prime, price, name, phone, email, attraction_id)
+
+		if(tappay_response["status"] == 0):
+			message_change = "UPDATE orders SET message = '已付款' WHERE member_id = %s "
+			cursor.execute(message_change, (member_id,))
+			con.commit()
+			return jsonify({"data":{"number":number,"payment":{"status":status,"message":"付款成功"}}}), 200
+		else:
+			return jsonify({"data":{"number":number,"payment":{"status":status,"message":message}}}), 200
+
+
+	except Exception as e:
+		print("An error occurred:", e)
+		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
+		
+	finally:
+		if con:
+			con.close()
+
+
+def send_to_tappay(prime, price, name, phone, email, attraction_id):
+	url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
+	partner_key = "partner_TMl68xudnzplM4D1EJHG4q3sF513FCtmOemDiqLpkoYM7A59aaDCGYOM"
+
+	header = {
+		"Content-Type":"application/json",
+		"x-api-key": partner_key
+		}
+
+	data = {
+		"prime":prime,
+		"partner_key":partner_key,
+		"merchant_id":"nihclil_CTBC",
+		"details":str(attraction_id),
+		"amount":price,
+		"cardholder":{
+				"phone_number":phone,
+				"name":name,
+				"email":email,
+				"zip_code": "",
+      			"address": "",
+      			"national_id": ""
+			}
+		}
+
+	try:
+		response = requests.post(url, headers = header, data = json.dumps(data))
+		return response.json()
+	except Exception as e:
+		print("An error occurred:", e)
+		return None
+
 
 app.run(host="0.0.0.0", port=3000, debug=True)
