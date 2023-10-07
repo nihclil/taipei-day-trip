@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>感謝頁面</title>
+    <link rel="stylesheet" href="/static/thankyou.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Noto+Sans+TC:wght@500;700&family=Open+Sans:wght@300;400&family=Playfair+Display:ital@0;1&family=Poppins:wght@100;200&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="header-nav">
+        <a
+          href="http://34.225.182.0:3000/"
+          class="header-nav__title link-unstyled"
+          >台北一日遊</a
+        >
+        <div class="header-nav__actions">
+          <button
+            class="header-nav__booking text-button text-button--p10 button"
+          >
+            預定行程
+          </button>
+          <button
+            class="header-nav__signin text-button text-button--p10 button"
+          >
+            登入/註冊
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="modal modal-signin">
+        <div class="signin__container modal__container">
+          <div class="modal__border"></div>
+          <div class="modal__content signin__content">
+            <button class="modal__close signin__close button">
+              <img src="static/icon_close.png" />
+            </button>
+            <p class="modal__title">登入會員帳號</p>
+            <form class="signin__form">
+              <input
+                type="email"
+                placeholder="輸入電子信箱"
+                class="modal__input signin__email"
+              />
+              <input
+                type="password"
+                placeholder="輸入密碼"
+                class="modal__input signin__password"
+              />
+              <button class="modal__button signin__button button">
+                登入帳戶
+              </button>
+            </form>
+            <p class="modal__prompt signin__prompt">還沒有帳戶？點此註冊</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal modal-signup">
+        <div class="signup__container modal__container">
+          <div class="modal__border"></div>
+          <div class="modal__content signup__content">
+            <button class="modal__close signup__close button">
+              <img src="static/icon_close.png" />
+            </button>
+            <p class="modal__title">註冊會員帳號</p>
+            <form class="signup__form">
+              <input
+                type="text"
+                placeholder="輸入姓名"
+                class="modal__input signup__name"
+              />
+              <input
+                type="email"
+                placeholder="輸入電子信箱"
+                class="modal__input signup__email"
+              />
+              <input
+                type="password"
+                placeholder="輸入密碼"
+                class="modal__input signup__password"
+              />
+              <button class="modal__button button">註冊新帳戶</button>
+            </form>
+            <p class="modal__prompt signup__prompt">已經有帳戶了？點此登入</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="page__container">
+      <div class="order">
+        <div class="order__message">
+          <p>行程預定成功</p>
+          <p>您的訂單編號如下</p>
+        </div>
+        <div class="order__number"></div>
+        <div class="order__reminder">請記住編號，或到會員中心查詢歷史訂單</div>
+      </div>
+
+      <footer class="footer--empty">
+        <p class="footer__word--empty">COPYRIGHT © 2023 台北一日遊</p>
+      </footer>
+    </div>
+    <script src="/static/thankyou.js"></script>
+  </body>
+</html>
