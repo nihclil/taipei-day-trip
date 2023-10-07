@@ -4,7 +4,7 @@ from flask import *
 from dotenv import load_dotenv
 import os
 import jwt
-from datetime import datetime
+import datetime
 import shortuuid
 import requests
 
@@ -472,7 +472,7 @@ def add_order():
 		if not name or not email or not phone:
 			return jsonify({"error":True, "message":"訂單建立失敗，輸入不正確或其他原因"}), 400
 
-		current_date = datetime.now().strftime("%Y%m%d")
+		current_date = datetime.datetime.now().strftime("%Y%m%d")
 		uuid = shortuuid.ShortUUID().random(length=8)
 		number = current_date + uuid
 
@@ -486,7 +486,6 @@ def add_order():
 		con.commit()
 
 		tappay_response = send_to_tappay(prime, price, name, phone, email, attraction_id)
-		# print(tappay_response)
 
 		if(tappay_response["status"] == 0):
 			message_change = "UPDATE orders SET message = '已付款' WHERE member_id = %s "

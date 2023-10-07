@@ -345,7 +345,6 @@ let ccvStatus = null;
 
 TPDirect.ccv.onUpdate((update) => {
   ccvStatus = update;
-  console.log(update);
 });
 
 //點擊確認付款按鍵
@@ -373,6 +372,11 @@ confirmButton.addEventListener("click", async function () {
         email,
         phone
       );
+
+      if (orderData.data) {
+        const number = orderData.data.number;
+        window.location.href = `http://127.0.0.1:3000/thankyou?number=${number}`;
+      }
     }
   } catch (error) {
     console.log("error:", error);
@@ -430,4 +434,5 @@ async function fetchApiOrder(bookingData, prime, name, email, phone) {
       },
     }),
   });
+  return await response.json();
 }
