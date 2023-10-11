@@ -294,7 +294,7 @@ main {
 }
 
 .info-section__field {
-  width: 980px;
+  width: auto;
   height: 38px;
   display: flex;
   align-items: center;
