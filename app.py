@@ -18,16 +18,21 @@ secret_key = os.getenv("JWT_SECRET_KEY")
 db_user = os.getenv("DB_USERNAME")
 db_pass = os.getenv("DB_PASSWORD")
 
+dbconfig = {
+	"user": db_user,
+	"password": db_pass,
+	"host":"localhost",
+	"database":"tourist_spots"
+}
+
 
 def con_db():
 	con = mysql.connector.connect(
-		user=db_user,
-		password=db_pass,
-		host='localhost',
-		database='tourist_spots'
+		pool_name = "mypool",
+		pool_size = 5,
+		**dbconfig
 	)
 	cursor = con.cursor(dictionary=True)
-	cursor.execute('USE tourist_spots;')
 	return con, cursor
 
 
@@ -147,6 +152,8 @@ def all_attractions():
 	except Exception as e:
 		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
 
+	finally:
+		con.close()
 
 @app.route("/api/attraction/<spot_id>")
 def tourist_spot(spot_id):
@@ -187,8 +194,10 @@ def tourist_spot(spot_id):
 
 	except Exception as e:
 		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
-
-	con.close()
+	
+	finally:
+		con.close()
+	
 
 
 @app.route("/api/mrts")
@@ -212,6 +221,8 @@ def mrts():
 		print("An error occurred:", e)
 		return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
 
+	finally:
+		con.close()
 
 @app.route("/api/user", methods=["POST"])
 def register():
@@ -318,6 +329,8 @@ def get_user():
 		print("An error occurred:", e)
 		return jsonify(None)
 	
+	finally:
+		con.close()
 
 @app.route("/api/booking", methods=["POST"])
 def create_booking():
