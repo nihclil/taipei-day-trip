@@ -381,6 +381,11 @@ main {
   margin-top: 22px;
 }
 
+.confirm__button:active {
+  background-color: #3a6773;
+  transform: translateY(3px);
+}
+
 .footer--booking {
   margin-top: 40px;
   box-sizing: border-box;
