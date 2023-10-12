@@ -258,6 +258,10 @@ main {
   padding: 9px 0px 9px 15px;
 }
 
+.station-list__arrow:active {
+  transform: translateY(1px);
+}
+
 .station-list__name {
   display: flex;
   padding: 5px 15px 5px 15px;
@@ -267,6 +271,16 @@ main {
   font-weight: 500;
   color: #666666;
   cursor: pointer;
+}
+
+.station-list__name:hover {
+  transform: translateY(-3px);
+  transition: transform 0.2s;
+}
+
+.station-list__name:active {
+  transform: translateY(1px);
+  transition: transform 0.2s;
 }
 
 .attractions {
@@ -284,6 +298,17 @@ main {
   height: 242px;
   margin: 15px;
   position: relative;
+}
+
+.attraction-card:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px);
+  transition: transform 0.2s;
+}
+
+.attraction-card:active {
+  transform: translateY(1px);
+  transition: transform 0.2s;
 }
 
 .attraction-card img {
