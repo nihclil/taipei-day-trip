@@ -215,6 +215,11 @@ header {
   height: 47px;
 }
 
+.modal__button:active {
+  background-color: #3a6773;
+  transform: translateY(3px);
+}
+
 .modal__prompt {
   font-family: Noto Sans TC;
   font-weight: 500;
