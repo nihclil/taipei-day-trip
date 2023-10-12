@@ -165,6 +165,10 @@ header {
   transform: translateY(3px);
 }
 
+.modal__button:hover {
+  background-color: #3a6773;
+}
+
 .modal__prompt {
   font-family: Noto Sans TC;
   font-weight: 500;
@@ -369,6 +373,10 @@ input[type="radio"]:checked {
 .booking-button:active {
   background-color: #3a6773;
   transform: translateY(3px);
+}
+
+.booking-button:hover {
+  background-color: #3a6773;
 }
 
 .separator {

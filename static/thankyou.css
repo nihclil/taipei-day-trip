@@ -159,6 +159,10 @@ header {
   height: 47px;
 }
 
+.modal__button:hover {
+  background-color: #3a6773;
+}
+
 .modal__button:active {
   background-color: #3a6773;
   transform: translateY(3px);

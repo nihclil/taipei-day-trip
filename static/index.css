@@ -220,6 +220,10 @@ header {
   transform: translateY(3px);
 }
 
+.modal__button:hover {
+  background-color: #3a6773;
+}
+
 .modal__prompt {
   font-family: Noto Sans TC;
   font-weight: 500;
