@@ -361,6 +361,11 @@ input[type="radio"]:checked {
   background-color: #448899;
 }
 
+.booking-button:active {
+  background-color: #3a6773;
+  transform: translateY(3px);
+}
+
 .separator {
   box-sizing: border-box;
   margin: 40px auto;
