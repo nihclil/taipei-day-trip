@@ -61,83 +61,62 @@ function buildAttractionSection(precessedData) {
   attractionInfos.insertBefore(categoryMrt, bookingInfos);
 }
 
+const carouselButtons = document.querySelectorAll(".carousel__button");
+
+carouselButtons.forEach((button) => {
+  button.addEventListener("click", function () {
+    const offset = button.dataset.carouselButton === "next" ? 1 : -1;
+    const slides = button
+      .closest("[data-carousel]")
+      .querySelector("[data-slides]");
+
+    if (slides.children.length <= 1) {
+      return;
+    }
+
+    const activeSlide = slides.querySelector("[data-active]");
+    let newIndex = [...slides.children].indexOf(activeSlide) + offset;
+    if (newIndex < 0) newIndex = slides.children.length - 1;
+    if (newIndex >= slides.children.length) newIndex = 0;
+
+    slides.children[newIndex].dataset.active = true;
+    delete activeSlide.dataset.active;
+
+    const indicators = document.querySelectorAll(".indicator");
+    indicators.forEach((indicator) =>
+      indicator.classList.remove("indicator--active")
+    );
+    indicators[newIndex].classList.add("indicator--active");
+  });
+});
+
 function buildFigureArea(processedData) {
-  const photosBookingSection = document.querySelector(
-    ".photos-booking-section"
-  );
-  const attractionInfos = document.querySelector(".attraction-infos");
-
-  const figure = document.createElement("figure");
-  figure.className = "attraction-photos";
-
+  const carouselUl = document.querySelector("[data-slides]");
+  const attractionPhotos = document.querySelector(".attraction-photos");
   const carouselIndicators = document.createElement("div");
-  carouselIndicators.className = "carousel-indicators";
-  figure.appendChild(carouselIndicators);
+  carouselIndicators.className = "carousel__indicators";
+  attractionPhotos.appendChild(carouselIndicators);
 
-  const imageDivs = [];
   const indicators = [];
 
   for (let i = 0; i < processedData.images.length; i++) {
-    const imageDiv = document.createElement("div");
-    imageDiv.className = "attraction-image";
-    imageDiv.style.backgroundImage = `url(${processedData.images[i]})`;
-    imageDiv.style.transform = `translateX(${i * 100}%)`;
-    imageDivs.push(imageDiv);
+    const carouselSlide = document.createElement("li");
+    carouselSlide.className = "carousel__slide";
+    i === 0 ? carouselSlide.setAttribute("data-active", "") : "";
 
-    figure.appendChild(imageDiv);
+    const carouselImage = document.createElement("img");
+    carouselImage.className = "carousel__image";
+    carouselImage.src = processedData.images[i];
+
+    carouselSlide.appendChild(carouselImage);
+    carouselUl.appendChild(carouselSlide);
 
     const indicator = document.createElement("div");
     indicator.className = "indicator";
+    i === 0 ? indicator.classList.add("indicator--active") : "";
     indicators.push(indicator);
     carouselIndicators.appendChild(indicator);
   }
-
-  const leftArrow = document.createElement("button");
-  leftArrow.className = "button left-arrow";
-  const leftArrowImg = document.createElement("img");
-  leftArrowImg.src = "/static/btn_leftArrow.png";
-  leftArrow.appendChild(leftArrowImg);
-
-  const rightArrow = document.createElement("button");
-  rightArrow.className = "button right-arrow";
-  const rightArrowImg = document.createElement("img");
-  rightArrowImg.src = "/static/btn_rightArrow.png";
-  rightArrow.appendChild(rightArrowImg);
-
-  figure.appendChild(leftArrow);
-  figure.appendChild(rightArrow);
-  figure.appendChild(carouselIndicators);
-  photosBookingSection.insertBefore(figure, attractionInfos);
-
-  let curImage = 0;
-  let maxImage = imageDivs.length - 1;
-
-  function updateImage() {
-    imageDivs.forEach((img, index) => {
-      img.style.transform = `translateX(${100 * (index - curImage)}%  )`;
-    });
-
-    indicators.forEach((indicator) => {
-      indicator.classList.remove("active");
-    });
-    indicators[curImage].classList.add("active");
-  }
-
-  rightArrow.addEventListener("click", function () {
-    if (curImage < maxImage) {
-      curImage++;
-      updateImage();
-    }
-  });
-
-  leftArrow.addEventListener("click", function () {
-    if (curImage > 0) {
-      curImage--;
-      updateImage();
-    }
-  });
-
-  indicators[0].classList.add("active");
 }
 
 function buildAttractionDetails(precessedData) {

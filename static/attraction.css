@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .button {
@@ -186,14 +187,18 @@ header {
   display: flex;
 }
 
-.left-arrow,
-.right-arrow {
+.carousel__button {
   width: 36px;
   height: 36px;
   opacity: 75%;
   position: absolute;
   top: 50%;
+  z-index: 2;
   transform: translateY(-50%);
+}
+
+.carousel__button:active {
+  transform: translateY(-50%) translateY(1px);
 }
 
 .left-arrow {
@@ -204,7 +209,7 @@ header {
   right: 10px;
 }
 
-.carousel-indicators {
+.carousel__indicators {
   position: absolute;
   display: flex;
   bottom: 10px;
@@ -221,7 +226,7 @@ header {
   opacity: 75%;
 }
 
-.active {
+.indicator--active {
   background-color: #000000;
   border: 1px solid #ffffff;
 }
@@ -235,13 +240,24 @@ header {
   overflow: hidden;
 }
 
-.attraction-image {
+.carousel__slide {
+  transition: opacity 0.5s;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.carousel__slide[data-active] {
+  opacity: 1;
+}
+
+.carousel__image {
+  display: block;
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
   position: absolute;
-  transition: all 0.5s;
 }
 
 .attraction-infos {
