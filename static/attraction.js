@@ -106,6 +106,8 @@ function buildFigureArea(processedData) {
 
     const carouselImage = document.createElement("img");
     carouselImage.className = "carousel__image";
+    lazyload(carouselImage);
+
     carouselImage.src = processedData.images[i];
 
     carouselSlide.appendChild(carouselImage);
