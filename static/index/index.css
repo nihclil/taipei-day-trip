@@ -54,7 +54,7 @@ header {
 }
 
 .hero-section {
-  background-image: url("../static/welcome.png");
+  background-image: url("welcome.png");
   background-size: cover;
   height: 320px;
   display: flex;

@@ -178,7 +178,7 @@ function updateBookingUI(data, user) {
     const attractionIcon = document.createElement("div");
     attractionIcon.className = "attraction-detail__icon";
     const attractionIconImg = document.createElement("img");
-    attractionIconImg.src = "/static/icon_delete.png";
+    attractionIconImg.src = "/static/booking/icon_delete.png";
     attractionIcon.appendChild(attractionIconImg);
     attractionInfo.appendChild(attractionIcon);
 
