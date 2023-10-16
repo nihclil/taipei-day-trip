@@ -91,6 +91,10 @@ function createAttractionElement(attraction) {
   const img = document.createElement("img");
   img.src = attraction.images[0];
   attractionItem.appendChild(img);
+  img.className = "attraction-img";
+
+  let images = document.querySelectorAll(".attraction-img");
+  lazyload(images);
 
   const imgLink = document.createElement("a");
   imgLink.className = "attraction-link link-unstyled";

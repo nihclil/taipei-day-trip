@@ -160,49 +160,101 @@ async function fetchGetBooking() {
 function updateBookingUI(data, user) {
   if (data !== null) {
     const userName = user.data.name;
-    const headline = document.querySelector(".headline__content");
-    headline.textContent = `您好，${userName}，待預定的行程如下：`;
+    //main-info
+    const mainInfo = document.querySelector(".main-info");
+    //headline
+    const headline = document.createElement("div");
+    headline.className = "headline";
+    const headlineContent = document.createElement("div");
+    headlineContent.className = "headline__content";
+    headlineContent.textContent = `您好，${userName}，待預定的行程如下：`;
+    headline.appendChild(headlineContent);
+    mainInfo.insertAdjacentElement("beforebegin", headline);
 
-    const title = data.data.attraction.name;
-    const attractionTitle = document.querySelector(".attraction-detail__title");
-    attractionTitle.textContent = `台北一日遊：${title}`;
+    const attractionInfo = document.createElement("section");
+    attractionInfo.className = "attraction-info";
+    mainInfo.insertAdjacentElement("afterbegin", attractionInfo);
 
-    const date = data.data.date;
-    const attractionDate = document.querySelector(".attraction-detail__date");
-    attractionDate.textContent = date;
+    const attractionIcon = document.createElement("div");
+    attractionIcon.className = "attraction-detail__icon";
+    const attractionIconImg = document.createElement("img");
+    attractionIconImg.src = "/static/booking/icon_delete.png";
+    attractionIcon.appendChild(attractionIconImg);
+    attractionInfo.appendChild(attractionIcon);
 
-    const time = data.data.time;
-    const attractionTime = document.querySelector(".attraction-detail__time");
-    time === "morning"
-      ? (attractionTime.textContent = "上半天")
-      : (attractionTime.textContent = "下半天");
+    const attractionImage = document.createElement("figure");
+    attractionImage.className = "attraction-image";
+    attractionInfo.appendChild(attractionImage);
 
-    const price = data.data.price;
-    const attractionPrice = document.querySelector(".attraction-detail__price");
-    attractionPrice.textContent = `新台幣 ${price} 元`;
+    const attractionImg = document.createElement("img");
+    attractionImg.className = "attraction-image__img";
+    attractionImg.src = data.data.attraction.image;
+    attractionImage.appendChild(attractionImg);
 
-    const address = data.data.attraction.address;
-    const attractionAddress = document.querySelector(
-      ".attraction-detail__address"
-    );
-    attractionAddress.textContent = address;
+    const attractionDetail = document.createElement("div");
+    attractionDetail.className = "attraction-detail";
+    attractionImage.insertAdjacentElement("afterend", attractionDetail);
 
-    const image = data.data.attraction.image;
-    const attractionImage = document.querySelector(".attraction-image__img");
-    attractionImage.src = image;
+    const attractionTitle = document.createElement("p");
+    attractionTitle.className = "attraction-detail__title";
+    attractionDetail.insertAdjacentElement("afterbegin", attractionTitle);
+    attractionTitle.textContent = data.data.attraction.name;
+
+    const details = [
+      { label: "日期", className: "attraction__date", content: data.data.date },
+      { label: "時間", className: "attraction__time", content: data.data.time },
+      {
+        label: "費用",
+        className: "attraction__price",
+        content: data.data.price,
+      },
+      {
+        label: "地點",
+        className: "attraction__address",
+        content: data.data.attraction.address,
+      },
+    ];
+
+    details.forEach((detail) => {
+      const attractionDetailContainer = document.createElement("p");
+      attractionDetailContainer.classList.add("attraction-detail__container");
+
+      const attractionLabel = document.createElement("span");
+      attractionLabel.classList.add("attraction-detail__label");
+      attractionLabel.textContent = `${detail.label}：`;
+
+      const attractionLabelInfo = document.createElement("span");
+      attractionLabelInfo.classList.add(
+        "attraction-detail__info",
+        detail.className
+      );
+
+      if (detail.className === "attraction__time") {
+        attractionLabelInfo.textContent =
+          detail.content === "morning" ? "上半天" : "下半天";
+      } else {
+        attractionLabelInfo.textContent = detail.content;
+      }
+
+      attractionDetailContainer.appendChild(attractionLabel);
+      attractionLabel.insertAdjacentElement("afterend", attractionLabelInfo);
+      attractionDetail.appendChild(attractionDetailContainer);
+    });
   } else {
     const userName = user.data.name;
-    const headlineContent = document.querySelector(".headline__content");
-    headlineContent.textContent = `您好，${userName}，待預定的行程如下：`;
-
-    const headline = document.querySelector(".headline");
-    headline.className = "headline--empty";
-
+    //main-info
     const mainInfo = document.querySelector(".main-info");
     mainInfo.style.display = "none";
+    //headline
+    const headline = document.createElement("div");
+    headline.className = "headline--empty";
+    const headlineContent = document.createElement("div");
+    headlineContent.className = "headline__content";
+    headlineContent.textContent = `您好，${userName}，待預定的行程如下：`;
+    headline.appendChild(headlineContent);
+    mainInfo.insertAdjacentElement("beforebegin", headline);
 
     const main = document.querySelector("main");
-
     const emptyState = document.createElement("div");
     emptyState.className = "empty-state";
     emptyState.textContent = "目前沒有任何的預定行程";
@@ -217,11 +269,12 @@ function updateBookingUI(data, user) {
 }
 
 //刪除預定按鈕
-const deleteButton = document.querySelector(".attraction-detail__icon");
-deleteButton.addEventListener("click", async function () {
-  const data = await fetchDeleteBooking();
-  if (data.ok) {
-    location.reload();
+document.body.addEventListener("click", async function (event) {
+  if (event.target.closest(".attraction-detail__icon")) {
+    const data = await fetchDeleteBooking();
+    if (data.ok) {
+      location.reload();
+    }
   }
 });
 
