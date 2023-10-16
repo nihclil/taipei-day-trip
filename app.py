@@ -26,8 +26,8 @@ dbconfig = {
 }
 
 pool = mysql.connector.pooling.MySQLConnectionPool(
-    pool_name="mypool",
-    pool_size=10, 
+    pool_name = "mypool",
+    pool_size = 10, 
     **dbconfig
 )
 
@@ -249,7 +249,6 @@ def register():
 			insert_member = "INSERT INTO member (username, email, password) VALUES (%s, %s, %s);"
 			cursor.execute(insert_member, (name, email, password))
 			con.commit()
-			con.close()
 			return jsonify({"ok": True}), 200
 
 	except Exception as e:
