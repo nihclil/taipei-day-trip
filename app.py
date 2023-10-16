@@ -25,15 +25,16 @@ dbconfig = {
 	"database":"tourist_spots"
 }
 
+pool = mysql.connector.pooling.MySQLConnectionPool(
+    pool_name="mypool",
+    pool_size=10, 
+    **dbconfig
+)
 
 def con_db():
-	con = mysql.connector.connect(
-		pool_name = "mypool",
-		pool_size = 5,
-		**dbconfig
-	)
-	cursor = con.cursor(dictionary=True)
-	return con, cursor
+    con = pool.get_connection()
+    cursor = con.cursor(dictionary=True)
+    return con, cursor
 
 
 # Pages
