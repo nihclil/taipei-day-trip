@@ -12,3 +12,17 @@
 * Python Flask
 * MySQL
 
+### Cloud Service
+* AWS EC2
+
+## Features
+* Building web server with **Python Flask**.
+* Utilizing **MySQL** for the storage of tourist spot information, member data, and booking data.
+* Implementing user authentication with **JWT**.
+* Integrating [TapPay](<https://www.tappaysdk.com/taiwan-zhtw>) for the purchase of guided tour services.
+* Using **RWD** for pages.
+* Deploying the website on **AWS EC2**.
+
+
+## Live Demo
+![taipeidaytrip](https://github.com/nihclil/taipei-day-trip/assets/129505187/9e9c2ff4-d5d9-4210-95f1-aa219c3abddb)
