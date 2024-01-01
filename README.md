@@ -13,3 +13,8 @@
 
 ## Live Demo
 ![taipeidaytrip](https://github.com/nihclil/taipei-day-trip/assets/129505187/9e9c2ff4-d5d9-4210-95f1-aa219c3abddb)
+
+## Contact
+🙋‍♀️Yi-Chin, Ho
+
+📧Email:oxx921@gmail.com
