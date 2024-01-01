@@ -3,19 +3,6 @@
 **Taipei Day Trip is an e-commerce website that introduces attractions in Taipei City, allowing users to book guided tours using credit cards.**
 
 ## Technology Stack 
-### Frontend
-* HTML
-* CSS
-* JavaScript
-
-### Backend
-* Python Flask
-* MySQL
-
-### Cloud Service
-* AWS EC2
-
-## Features
 * Building web server with **Python Flask**.
 * Utilizing **MySQL** for the storage of tourist spot information, member data, and booking data.
 * Implementing user authentication with **JWT**.
