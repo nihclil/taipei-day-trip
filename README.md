@@ -12,7 +12,20 @@
 
 
 ## Live Demo
-![taipeidaytrip](https://github.com/nihclil/taipei-day-trip/assets/129505187/9e9c2ff4-d5d9-4210-95f1-aa219c3abddb)
+
+![taipei-day-trip](https://github.com/nihclil/taipei-day-trip/assets/129505187/78c3914c-c7f1-4b6a-8120-3627a79916b9)
+
+### Test Account
+
+| Account | Password |
+|:----------:|:---------------:|
+| test@test.com | test |
+
+
+| Card Number | MM/YY | ccv |
+|:--------:|:--------:|:--------:|
+| 4242 4242 4242 4242 | 05/26 | 123 |
+
 
 ## Contact
 🙋‍♀️Yi-Chin, Ho
